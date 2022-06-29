@@ -16,6 +16,8 @@ import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.domain.playFadeOutAnimation
 import com.albatros.kplanner.model.DiraUser
 import com.albatros.kplanner.model.EnterResult
+import com.albatros.kplanner.ui.fragments.register.RegisterFragmentDirections
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,7 +48,7 @@ class EnterFragment : Fragment() {
 
     private val onDiraUserCreated = Observer<DiraUser?> {
         if (it == null) {
-            Toast.makeText(context, "Unable to do it.", Toast.LENGTH_SHORT).show()
+            binding.passwordInput.helperText = "Internal server error. Try again."
             lifecycleScope.launch {
                 binding.passwordInput.playFadeInAnimation(500L)
                 binding.addressInput.playFadeInAnimation(500L)
@@ -54,9 +56,15 @@ class EnterFragment : Fragment() {
             return@Observer
         }
 
-        Toast.makeText(context, it.score.toString(), Toast.LENGTH_SHORT).show()
-
         binding.enterText.setOnClickListener { }
+
+        lifecycleScope.launch {
+            binding.register.playFadeOutAnimation(500L)
+            binding.enterText.playFadeOutAnimation(500L)
+            delay(700)
+            val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
+            findNavController().navigate(direction)
+        }
     }
 
     private fun processUserData() {

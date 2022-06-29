@@ -6,6 +6,12 @@
     app:startDestination="@id/EnterFragment">
 
     <fragment
+        android:id="@+id/WelcomeFragment"
+        android:name="com.albatros.kplanner.ui.fragments.welcome.WelcomeFragment"
+        android:label=""
+        tools:layout="@layout/welcome_fragment" />
+
+    <fragment
         android:id="@+id/EnterFragment"
         android:name="com.albatros.kplanner.ui.fragments.enter.EnterFragment"
         android:label=""
@@ -13,7 +19,11 @@
         tools:layout="@layout/enter_fragment">
         <action
             android:id="@+id/action_EnterFragment_to_RegisterFragment"
-            app:destination="@id/RegisterFragment"/>
+            app:destination="@id/RegisterFragment" />
+
+        <action
+            android:id="@+id/action_EnterFragment_to_WelcomeFragment"
+            app:destination="@id/WelcomeFragment" />
     </fragment>
 
     <fragment
@@ -21,6 +31,9 @@
         android:name="com.albatros.kplanner.ui.fragments.register.RegisterFragment"
         android:label=""
         tools:layout="@layout/register_fragment">
+        <action
+            android:id="@+id/action_RegisterFragment_to_WelcomeFragment"
+            app:destination="@id/WelcomeFragment" />
 
     </fragment>
 

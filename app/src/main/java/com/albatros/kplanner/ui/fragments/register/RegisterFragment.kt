@@ -6,15 +6,16 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.albatros.kplanner.databinding.RegisterFragmentBinding
 import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.domain.playFadeOutAnimation
 import com.albatros.kplanner.model.DiraUser
 import com.albatros.kplanner.model.EnterResult
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,7 +47,7 @@ class RegisterFragment : Fragment() {
 
     private val onDiraUserCreated = Observer<DiraUser?> {
         if (it == null) {
-            Toast.makeText(context, "Unable to do it.", Toast.LENGTH_SHORT).show()
+            binding.passwordInput.helperText = "Internal server error. Try again."
             lifecycleScope.launch {
                 binding.passwordInput.playFadeInAnimation(500L)
                 binding.addressInput.playFadeInAnimation(500L)
@@ -54,9 +55,14 @@ class RegisterFragment : Fragment() {
             return@Observer
         }
 
-        Toast.makeText(context, "Good", Toast.LENGTH_SHORT).show()
-
         binding.registerText.setOnClickListener { }
+
+        lifecycleScope.launch {
+            binding.registerText.playFadeOutAnimation(500L)
+            delay(700)
+            val direction = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
+            findNavController().navigate(direction)
+        }
     }
 
     private fun processUserData() {
