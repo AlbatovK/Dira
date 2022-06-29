@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/EnterFragment">
+
+    <fragment
+        android:id="@+id/EnterFragment"
+        android:name="com.albatros.kplanner.ui.fragments.enter.EnterFragment"
+        android:label=""
+
+        tools:layout="@layout/enter_fragment">
+        <action
+            android:id="@+id/action_EnterFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegisterFragment"
+        android:name="com.albatros.kplanner.ui.fragments.register.RegisterFragment"
+        android:label=""
+        tools:layout="@layout/register_fragment">
+
+    </fragment>
+
+</navigation>
