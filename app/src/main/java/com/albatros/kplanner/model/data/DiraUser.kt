@@ -1,4 +1,4 @@
-package com.albatros.kplanner.model
+package com.albatros.kplanner.model.data
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose

@@ -12,23 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:background="@android:color/transparent"
-        android:elevation="0dp"
-        android:fitsSystemWindows="true"
-        android:layoutAnimation="@null"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:theme="@style/Theme.KPlanner.AppBarOverlay"
+        android:elevation="0dp"
         app:elevation="0dp"
-        app:statusBarScrim="@android:color/transparent">
+        android:theme="@style/Theme.KPlanner.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            app:elevation="0dp"
             android:layout_width="match_parent"
             android:elevation="0dp"
-            android:fitsSystemWindows="true"
-            android:layoutAnimation="@null"
-            app:elevation="0dp"
-            app:statusBarScrim="@android:color/transparent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/Theme.KPlanner.PopupOverlay" />
 

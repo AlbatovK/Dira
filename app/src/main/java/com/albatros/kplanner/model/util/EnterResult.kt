@@ -1,4 +1,4 @@
-package com.albatros.kplanner.model
+package com.albatros.kplanner.model.util
 
 import com.google.firebase.auth.FirebaseUser
 

@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/activity_bottom_nav.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/activity_main.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/content_nav.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/enter_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/fragment_dashboard.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/fragment_first.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/fragment_second.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/navigation_fragment.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/note_layout.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/register_fragment.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/welcome_fragment.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/menu_main.xml" value="0.20416666666666666" />

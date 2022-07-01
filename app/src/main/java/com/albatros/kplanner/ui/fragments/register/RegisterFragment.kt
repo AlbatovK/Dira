@@ -3,18 +3,17 @@ package com.albatros.kplanner.ui.fragments.register
 import android.os.Bundle
 import android.text.InputType
 import android.transition.TransitionInflater
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.RegisterFragmentBinding
 import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.domain.playFadeOutAnimation
-import com.albatros.kplanner.model.DiraUser
-import com.albatros.kplanner.model.EnterResult
+import com.albatros.kplanner.model.data.DiraUser
+import com.albatros.kplanner.model.util.EnterResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -76,7 +75,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
 
         postponeEnterTransition()
         sharedElementEnterTransition =

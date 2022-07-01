@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.albatros.kplanner.domain.isEntryValid
-import com.albatros.kplanner.model.DiraUser
-import com.albatros.kplanner.model.EnterResult
+import com.albatros.kplanner.model.data.DiraUser
+import com.albatros.kplanner.model.util.EnterResult
 import com.albatros.kplanner.model.api.DiraApi
 import com.albatros.kplanner.model.repo.UserRepo
 import com.google.firebase.auth.FirebaseUser
@@ -22,6 +22,12 @@ class EnterViewModel(private val api: DiraApi, private val repo: UserRepo) : Vie
 
     private val _diraUser: MutableLiveData<DiraUser?> = MutableLiveData()
     val diraUser: LiveData<DiraUser?> = _diraUser
+
+    init {
+        viewModelScope.launch(Dispatchers.Main) {
+            try { api.preActivate() } catch (e: Exception) {}
+        }
+    }
 
     fun transformDiraUser(user: FirebaseUser) {
         viewModelScope.launch(Dispatchers.Main) {

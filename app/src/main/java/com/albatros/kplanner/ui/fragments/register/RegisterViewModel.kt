@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.albatros.kplanner.domain.isEntryValid
-import com.albatros.kplanner.model.DiraUser
-import com.albatros.kplanner.model.EnterResult
+import com.albatros.kplanner.model.data.DiraUser
+import com.albatros.kplanner.model.util.EnterResult
 import com.albatros.kplanner.model.api.DiraApi
 import com.albatros.kplanner.model.repo.UserRepo
 import com.google.firebase.auth.FirebaseUser
