@@ -39,12 +39,12 @@ class NoteAdapter(
                     ViewCompat.setTransitionName(cardView, note.id.toString())
                     title.text = note.title
                     description.text = note.description
+                    info.text = note.score.toString() + " очков"
 
                     cardView.playFadeInAnimation(500L)
 
                     root.setOnClickListener {
-                        /* Safe navigation check */
-                        try { listener.onNoteSelected(note, it) } catch (e: IllegalArgumentException) {}
+                        listener.onNoteSelected(note, it)
                     }
                 }
             }

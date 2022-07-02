@@ -15,19 +15,13 @@ data class DiraNote(
     @SerializedName("description")
     @Expose
     var description: String = "",
-    @SerializedName("tasks")
+    @SerializedName("score")
     @Expose
-    var tasks: @RawValue List<Task> = listOf(),
-    @SerializedName("date")
-    @Expose
-    var date: String = Date().toString(),
-    @SerializedName("finished")
-    @Expose
-    var finished: Boolean = false,
+    var score: Int = 0,
     @SerializedName("id")
     @Expose
     var id: Long = UUID.randomUUID().mostSignificantBits,
-    @SerializedName("ownerId")
+    @SerializedName("finished")
     @Expose
-    var ownerId: String = ""
+    var finished: Boolean = false
 ) : Parcelable

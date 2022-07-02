@@ -26,20 +26,13 @@ class EnterFragment : Fragment() {
 
     private val onUserEntered = Observer<EnterResult> {
         when (it) {
-            is EnterResult.EntryStarted -> {
-
-            }
-            is EnterResult.EntryFailure -> {
-                binding.passwordInput.helperText = it.exception.message
-            }
+            is EnterResult.EntryInvalid ->  binding.passwordInput.helperText = "Input data is invalid. Try again."
+            is EnterResult.EntryStarted -> { }
+            is EnterResult.EntryFailure -> binding.passwordInput.helperText = it.exception.message
             is EnterResult.EntrySuccess -> {
                 binding.passwordInput.playFadeOutAnimation(1000L)
                 binding.addressInput.playFadeOutAnimation(1000L)
-
                 viewModel.transformDiraUser(it.user)
-            }
-            is EnterResult.EntryInvalid -> {
-                binding.passwordInput.helperText = "Input data is invalid. Try again."
             }
         }
     }
@@ -60,6 +53,7 @@ class EnterFragment : Fragment() {
             binding.register.playFadeOutAnimation(500L)
             binding.enterText.playFadeOutAnimation(500L)
             delay(700)
+
             val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
             findNavController().navigate(direction)
         }

@@ -2,6 +2,7 @@ package com.albatros.kplanner.model.api
 
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.DiraUser
+import com.albatros.kplanner.model.data.Schedule
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,8 +20,15 @@ interface DiraApi {
     suspend fun findUserByToken(@Query("user_id") user_id: String): DiraUser
 
     @GET(value = "/note/get/all")
-    suspend fun getAllNotesByOwnerId(@Query("user_id") user_id: String): List<DiraNote>
+    suspend fun getAllNotes(): List<DiraNote>
 
-    @POST(value = "/note/create")
-    suspend fun createNote(@Body note: DiraNote)
+    @GET(value = "/note/schedule/get")
+    suspend fun getScheduleByOwnerId(@Query("owner_id") owner_id: String): Schedule
+
+    @POST(value = "/note/schedule/create")
+    suspend fun createSchedule(@Body schedule: Schedule)
+
+    @GET(value = "/note/schedule/add")
+    suspend fun addNote(@Query("note_id") note_id: Long, @Query("user_id") user_id: String): Boolean
+
 }

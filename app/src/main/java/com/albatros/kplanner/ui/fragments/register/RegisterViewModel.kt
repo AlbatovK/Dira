@@ -8,6 +8,7 @@ import com.albatros.kplanner.domain.isEntryValid
 import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.model.util.EnterResult
 import com.albatros.kplanner.model.api.DiraApi
+import com.albatros.kplanner.model.data.Schedule
 import com.albatros.kplanner.model.repo.UserRepo
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -29,8 +30,12 @@ class RegisterViewModel(private val api: DiraApi, private val repo: UserRepo) : 
             _diraUser.value = try {
                 val apiUser = api.createUser(diraUser)
                 repo.diraUser = apiUser.copy()
+                repo.schedule = Schedule(ownerId = apiUser.tokenId)
+                api.createSchedule(repo.schedule)
                 apiUser
-            } catch (e: Exception) { null }
+            } catch (e: Exception) {
+                null
+            }
         }
     }
 

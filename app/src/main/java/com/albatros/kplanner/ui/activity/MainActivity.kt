@@ -1,9 +1,6 @@
 package com.albatros.kplanner.ui.activity
 
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -22,11 +19,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        @Suppress("deprecation")
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setTitleTextColor(resources.getColor(R.color.dark_cyan, theme))
     }
 
     override fun onSupportNavigateUp(): Boolean {

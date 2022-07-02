@@ -34,6 +34,7 @@ class EnterViewModel(private val api: DiraApi, private val repo: UserRepo) : Vie
             _diraUser.value = try {
                 val apiUser: DiraUser = api.findUserByToken(user.uid)
                 repo.diraUser = apiUser.copy()
+                repo.schedule = api.getScheduleByOwnerId(apiUser.tokenId)
                 apiUser
             } catch (e: Exception) { null }
         }

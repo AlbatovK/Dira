@@ -12,8 +12,8 @@
     <color name="light_cyan">#e0f7fa</color>
     <color name="mid_cyan">#26c6da</color>
     <color name="dark_cyan">#00838f</color>
+    <color name="fin_blue">#4682B4</color>
     <color name="dark_cyan_alpha">#6026c6da</color>
-
     <color name="dark_gray">#FF202020</color>
     <color name="dimgrey">#555555</color>
     <color name="light_blue">#FFD7E8DE</color>

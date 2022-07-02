@@ -6,17 +6,48 @@
     app:startDestination="@id/EnterFragment">
 
     <fragment
+        android:id="@+id/MainFragment"
+        android:name="com.albatros.kplanner.ui.fragments.main.MainFragment"
+        android:label=""
+        tools:layout="@layout/main_fragment" >
+
+        <action
+            app:destination="@id/ListFragment"
+            android:id="@+id/action_MainFragment_to_ListFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/ListFragment"
+        android:name="com.albatros.kplanner.ui.fragments.list.ListFragment"
+        android:label="Выбор макета"
+        tools:layout="@layout/list_fragment" >
+
+        <action
+            app:destination="@id/MainFragment"
+            android:id="@+id/action_ListFragment_to_MainFragment" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/WelcomeFragment"
         android:name="com.albatros.kplanner.ui.fragments.welcome.WelcomeFragment"
         android:label=""
-        tools:layout="@layout/welcome_fragment" />
+        tools:layout="@layout/welcome_fragment">
+
+        <action
+            android:id="@+id/action_WelcomeFragment_to_MainFragment"
+            app:destination="@id/MainFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/EnterFragment"
         android:name="com.albatros.kplanner.ui.fragments.enter.EnterFragment"
         android:label=""
-
         tools:layout="@layout/enter_fragment">
+
         <action
             android:id="@+id/action_EnterFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
@@ -24,6 +55,7 @@
         <action
             android:id="@+id/action_EnterFragment_to_WelcomeFragment"
             app:destination="@id/WelcomeFragment" />
+
     </fragment>
 
     <fragment
@@ -31,6 +63,7 @@
         android:name="com.albatros.kplanner.ui.fragments.register.RegisterFragment"
         android:label=""
         tools:layout="@layout/register_fragment">
+
         <action
             android:id="@+id/action_RegisterFragment_to_WelcomeFragment"
             app:destination="@id/WelcomeFragment" />
