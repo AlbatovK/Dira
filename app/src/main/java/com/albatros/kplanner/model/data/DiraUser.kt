@@ -26,6 +26,18 @@ data class DiraUser(
 
     @SerializedName("friendsIds")
     @Expose
-    var friendsIds: List<String> = listOf()
+    var friendsIds: List<String> = listOf(),
+
+    @SerializedName("league")
+    @Expose
+    var league: Int = 1,
+
+    @SerializedName("scoreOfDay")
+    @Expose
+    var scoreOfDay: Int = 0,
+
+    @SerializedName("scoreOfWeek")
+    @Expose
+    var scoreOfWeek: Int = 0,
 
 ) : Parcelable

@@ -31,9 +31,14 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
+    var clicked = false
+
     private val listener = object: NoteAdapterListener {
         override fun onNoteSelected(note: DiraNote, view: View) {
+            if (clicked)
+                return
             viewModel.addNote(note)
+            clicked = true
         }
     }
 

@@ -24,15 +24,20 @@ class MainViewModel(private val api: DiraApi, private val repo: UserRepo) : View
 
     fun finishNote(note: DiraNote) {
         note.finished = true
+        repo.diraUser.score += note.score
+        repo.diraUser.scoreOfDay += note.score
+        repo.diraUser.scoreOfWeek += note.score
         saveState()
-        viewModelScope.launch(Dispatchers.Main) {
+    }
 
-        }
+    fun getUsersDayScore(): Int {
+        return repo.diraUser.scoreOfDay
     }
 
     fun saveState() {
         viewModelScope.launch(Dispatchers.Main) {
             api.createSchedule(repo.schedule)
+            api.createUser(repo.diraUser)
         }
     }
 }

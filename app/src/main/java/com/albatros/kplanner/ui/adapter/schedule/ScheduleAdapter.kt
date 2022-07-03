@@ -61,11 +61,11 @@ class ScheduleAdapter(
 
                     cardView.playFadeInAnimation(500L)
                     if (note.finished) {
-                        cardView.setCardBackgroundColor(root.context.resources.getColor(R.color.neon_green, root.context.theme))
+                        doneImg.setColorFilter(root.context.resources.getColor(R.color.neon_green, root.context.theme))
                     }
 
                     doneImg.setOnClickListener {
-                        listener.onNoteFinished(note, schedule, cardView)
+                        listener.onNoteFinished(note, schedule, binding.doneImg)
                     }
                 }
             }

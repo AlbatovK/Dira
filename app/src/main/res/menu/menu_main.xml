@@ -10,8 +10,15 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_stats"
+        android:id="@+id/action_people"
         android:orderInCategory="2"
+        android:title="@string/app_name"
+        android:icon="@drawable/ic_account"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_stats"
+        android:orderInCategory="3"
         android:title="@string/app_name"
         android:icon="@drawable/ic_trophy"
         app:showAsAction="ifRoom" />

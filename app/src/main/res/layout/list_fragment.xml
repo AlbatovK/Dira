@@ -10,7 +10,6 @@
         android:id="@+id/scroll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="24dp"
         android:paddingBottom="30dp"
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,10 +27,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="12dp"
                 android:layout_marginBottom="36dp"
                 android:gravity="start"
                 android:orientation="vertical"
+                android:layout_marginTop="20dp"
                 android:overScrollMode="never"
                 android:padding="8dp" />
 
