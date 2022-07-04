@@ -1,9 +1,11 @@
 package com.albatros.kplanner.ui.adapter.note
 
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.albatros.kplanner.databinding.NoteLayoutBinding
@@ -43,8 +45,13 @@ class NoteAdapter(
 
                     cardView.playFadeInAnimation(500L)
 
+                    root.setOnLongClickListener {
+                        listener.onNoteSelected(note, it as CardView)
+                        true
+                    }
+
                     root.setOnClickListener {
-                        listener.onNoteSelected(note, it)
+                        listener.onNoteClicked(note, it as CardView)
                     }
                 }
             }

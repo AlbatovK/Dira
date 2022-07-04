@@ -25,11 +25,15 @@ class ListViewModel(private val api: DiraApi, private val repo: UserRepo) : View
 
     val noteAdded: LiveData<Boolean> = _noteAdded
 
-    fun addNote(note: DiraNote) {
+    fun addNotes(notes: List<DiraNote>) {
         viewModelScope.launch(Dispatchers.Main) {
             _noteAdded.value = try {
-                api.addNote(note.id, repo.diraUser.tokenId)
-            } catch (e: Exception) { false }
+                notes.forEach { api.addNote(it.id, repo.diraUser.tokenId) }
+                true
+            } catch (e: Exception) {
+                Log.d("AAAAAAA", "addNotes: ${e.localizedMessage}")
+                false
+            }
         }
     }
 

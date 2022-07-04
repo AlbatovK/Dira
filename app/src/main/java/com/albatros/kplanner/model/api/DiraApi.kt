@@ -13,6 +13,9 @@ interface DiraApi {
     @GET(value = "/user/league/get/all")
     suspend fun getUsersByLeague(@Query("league") league: Int): List<DiraUser>
 
+    @POST(value = "/note/schedule/add/many")
+    suspend fun addNotes(@Body note_ids: List<Long>, @Query("user_id") user_id: String)
+
     @GET(value = "/session/enable")
     suspend fun preActivate()
 
