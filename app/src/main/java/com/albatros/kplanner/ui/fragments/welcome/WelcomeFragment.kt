@@ -14,6 +14,7 @@ import com.albatros.kplanner.domain.playFadeOutAnimation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class WelcomeFragment : Fragment() {
@@ -32,7 +33,11 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val text = "Добро пожаловать" + "\n" + viewModel.getUserNickname()
+        val text = "Добро пожаловать" + "\n" + viewModel.getUserNickname().replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
         binding.welcomeText.text = text
 
         lifecycleScope.launch {

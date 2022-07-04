@@ -10,6 +10,9 @@ import retrofit2.http.Query
 
 interface DiraApi {
 
+    @GET(value = "/user/league/get/all")
+    suspend fun getUsersByLeague(@Query("league") league: Int): List<DiraUser>
+
     @GET(value = "/session/enable")
     suspend fun preActivate()
 

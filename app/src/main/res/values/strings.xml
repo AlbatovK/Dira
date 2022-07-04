@@ -3,4 +3,6 @@
     <string name="stat_str">Вы выполнили %d из %d</string>
     <string name="points_str">Заработано %d очков за сегодня</string>
     <string name="date_str">Сегодня, %d %s</string>
+    <string name="points_template_str">%d очков</string>
+    <string name="place_str"> %d. %s</string>
 </resources>

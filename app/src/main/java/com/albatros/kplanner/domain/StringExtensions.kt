@@ -3,6 +3,16 @@ package com.albatros.kplanner.domain
 fun isEntryValid(vararg args: String?) =
     args.none { it.isNullOrBlank() or it.isNullOrEmpty() }
 
+fun getLeague(league: Int) = leagueMap.getOrDefault(league, "Неизвестная лига")
+
+val leagueMap = mapOf(
+    1 to "Бронзовая лига",
+    2 to "Серебряная лига",
+    3 to "Золотая лига",
+    4 to "Платиновая лига",
+    5 to "Алмазная лига",
+)
+
 val monthMap = mapOf(
     0 to "января",
     1 to "февраля",

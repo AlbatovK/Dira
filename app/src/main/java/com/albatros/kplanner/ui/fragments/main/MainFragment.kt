@@ -37,6 +37,11 @@ class MainFragment : Fragment() {
             findNavController().navigate(direction)
             true
         }
+        R.id.action_stats -> {
+            val direction = MainFragmentDirections.actionMainFragmentToStatsFragment()
+            findNavController().navigate(direction)
+            true
+        }
         else -> false
     }
 
@@ -63,7 +68,6 @@ class MainFragment : Fragment() {
                 duration = 400
                 addUpdateListener { anim -> new?.let { view.setColorFilter(anim.animatedValue as Int) } }
             }.start()
-           // Toast.makeText(context, "${Calendar.getInstance().get(Calendar.DAY_OF_MONTH)}", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -25,9 +25,9 @@ class RegisterViewModel(private val api: DiraApi, private val repo: UserRepo) : 
     val diraUser: LiveData<DiraUser?> = _diraUser
 
     fun transformDiraUser(user: FirebaseUser) {
-        val diraUser = DiraUser(user.uid, 0, user.email!!, "nickname")
         viewModelScope.launch(Dispatchers.Main) {
             _diraUser.value = try {
+                val diraUser = DiraUser(user.uid, 0, user.email!!, user.email!!.split("@")[0])
                 val apiUser = api.createUser(diraUser)
                 repo.diraUser = apiUser.copy()
                 repo.schedule = Schedule(ownerId = apiUser.tokenId)
