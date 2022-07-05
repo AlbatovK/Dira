@@ -5,6 +5,7 @@ import com.albatros.kplanner.ui.fragments.list.ListViewModel
 import com.albatros.kplanner.ui.fragments.main.MainViewModel
 import com.albatros.kplanner.ui.fragments.register.RegisterViewModel
 import com.albatros.kplanner.ui.fragments.stats.StatsViewModel
+import com.albatros.kplanner.ui.fragments.users.UsersListViewModel
 import com.albatros.kplanner.ui.fragments.welcome.WelcomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -16,4 +17,5 @@ val viewModelModule = module {
     viewModel { ListViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get()) }
     viewModel { StatsViewModel(get(), get()) }
+    viewModel { UsersListViewModel(get(), get()) }
 }

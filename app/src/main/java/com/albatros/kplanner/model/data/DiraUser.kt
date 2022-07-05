@@ -26,7 +26,7 @@ data class DiraUser(
 
     @SerializedName("friendsIds")
     @Expose
-    var friendsIds: List<String> = listOf(),
+    var friendsIds: MutableList<String> = mutableListOf(),
 
     @SerializedName("league")
     @Expose

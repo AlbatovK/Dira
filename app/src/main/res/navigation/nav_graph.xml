@@ -10,15 +10,24 @@
         android:name="com.albatros.kplanner.ui.fragments.stats.StatsFragment"
         android:label="Рейтинг"
         tools:layout="@layout/stats_fragment" >
-
     </fragment>
 
+    <fragment
+        android:id="@+id/UserListFragment"
+        android:name="com.albatros.kplanner.ui.fragments.users.UsersListFragment"
+        android:label=""
+        tools:layout="@layout/users_list_layout" >
+    </fragment>
 
     <fragment
         android:id="@+id/MainFragment"
         android:name="com.albatros.kplanner.ui.fragments.main.MainFragment"
         android:label=""
         tools:layout="@layout/main_fragment" >
+
+        <action
+            app:destination="@id/UserListFragment"
+            android:id="@+id/action_MainFragment_to_UsersListFragment" />
 
         <action
             app:destination="@id/ListFragment"

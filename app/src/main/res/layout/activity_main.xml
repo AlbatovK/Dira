@@ -11,10 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
-        android:background="@android:color/transparent"
-        android:elevation="0dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
+
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
         android:theme="@style/Theme.KPlanner.AppBarOverlay"
         app:elevation="0dp">
 
@@ -24,6 +25,10 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
             app:elevation="0dp"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:layoutAnimation="@null"
+            app:statusBarScrim="@android:color/transparent"
             app:popupTheme="@style/Theme.KPlanner.PopupOverlay"
             app:theme="@style/ToolbarColoredBackArrow"
             app:titleTextAppearance="@style/AppBarTextAppearance" />

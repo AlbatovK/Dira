@@ -1,6 +1,8 @@
 package com.albatros.kplanner.model.module
 
+import android.content.Context
 import com.albatros.kplanner.model.api.DiraApi
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -18,6 +20,9 @@ private fun provideRetrofit(factory: GsonConverterFactory) = Retrofit.Builder()
     .addConverterFactory(factory)
     .build()
 
+private fun provideFirebaseAnalytics(context: Context) =
+    FirebaseAnalytics.getInstance(context)
+
 private fun provideGsonFactory(gson: Gson) =
     GsonConverterFactory.create(gson)
 
@@ -28,6 +33,7 @@ private fun provideGson() = GsonBuilder()
     .create()
 
 val appModule = module {
+    single { provideFirebaseAnalytics(get()) }
     single { provideApiService(get()) }
     single { provideRetrofit(get()) }
     single { provideGsonFactory(get()) }

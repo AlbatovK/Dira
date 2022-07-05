@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.AppCompatDrawableManager
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.StatsFragmentBinding
 import com.albatros.kplanner.domain.getLeague
-import com.albatros.kplanner.domain.playFadeInAnimation
-import com.albatros.kplanner.ui.adapter.user.UserAdapter
+import com.albatros.kplanner.ui.adapter.user.stats.UserAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 

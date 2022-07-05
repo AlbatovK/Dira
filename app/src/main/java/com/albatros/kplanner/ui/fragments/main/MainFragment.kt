@@ -44,6 +44,11 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
             findNavController().navigate(direction)
             true
         }
+        R.id.action_people -> {
+            val direction = MainFragmentDirections.actionMainFragmentToUsersListFragment()
+            findNavController().navigate(direction)
+            true
+        }
         R.id.action_stats -> {
             val direction = MainFragmentDirections.actionMainFragmentToStatsFragment()
             findNavController().navigate(direction)
@@ -71,6 +76,7 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
             binding.points.text = context?.getString(R.string.points_str, viewModel.getUsersDayScore())
             val new = context?.resources?.getColor(R.color.neon_green, context?.theme)
             val old = context?.resources?.getColor(R.color.dark_cyan, context?.theme)
+            view.setImageResource(R.drawable.ic_checkbox_checked)
             ValueAnimator.ofObject(ArgbEvaluator(), old, new).apply {
                 duration = 400
                 addUpdateListener { anim -> new?.let { view.setColorFilter(anim.animatedValue as Int) } }
