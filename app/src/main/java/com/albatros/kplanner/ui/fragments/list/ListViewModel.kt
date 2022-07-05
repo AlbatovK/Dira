@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.albatros.kplanner.model.api.DiraApi
 import com.albatros.kplanner.model.data.DiraNote
+import com.albatros.kplanner.model.data.NotesList
 import com.albatros.kplanner.model.repo.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,10 +29,9 @@ class ListViewModel(private val api: DiraApi, private val repo: UserRepo) : View
     fun addNotes(notes: List<DiraNote>) {
         viewModelScope.launch(Dispatchers.Main) {
             _noteAdded.value = try {
-                notes.forEach { api.addNote(it.id, repo.diraUser.tokenId) }
+                api.addNotes(NotesList(notes), repo.diraUser.tokenId)
                 true
             } catch (e: Exception) {
-                Log.d("AAAAAAA", "addNotes: ${e.localizedMessage}")
                 false
             }
         }

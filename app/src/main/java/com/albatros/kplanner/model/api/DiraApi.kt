@@ -1,8 +1,6 @@
 package com.albatros.kplanner.model.api
 
-import com.albatros.kplanner.model.data.DiraNote
-import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.model.data.Schedule
+import com.albatros.kplanner.model.data.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -14,7 +12,7 @@ interface DiraApi {
     suspend fun getUsersByLeague(@Query("league") league: Int): List<DiraUser>
 
     @POST(value = "/note/schedule/add/many")
-    suspend fun addNotes(@Body note_ids: List<Long>, @Query("user_id") user_id: String)
+    suspend fun addNotes(@Body noteList: NotesList, @Query("user_id") user_id: String)
 
     @GET(value = "/session/enable")
     suspend fun preActivate()

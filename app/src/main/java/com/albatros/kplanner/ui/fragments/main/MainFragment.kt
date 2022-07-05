@@ -20,16 +20,23 @@ import com.albatros.kplanner.domain.getMonth
 import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
+import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapter
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapterListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), MainActivity.IOnBackPressed {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: MainFragmentBinding
+
+    override fun onBackPressed(): Boolean {
+        activity?.finish()
+        activity?.finishAffinity()
+        return true
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
         R.id.action_create -> {

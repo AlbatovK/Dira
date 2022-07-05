@@ -50,6 +50,9 @@
         tools:layout="@layout/welcome_fragment">
 
         <action
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/nav_graph"
+            app:popUpToInclusive="true"
             android:id="@+id/action_WelcomeFragment_to_MainFragment"
             app:destination="@id/MainFragment" />
 
@@ -63,9 +66,15 @@
 
         <action
             android:id="@+id/action_EnterFragment_to_RegisterFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/nav_graph"
+            app:popUpToInclusive="true"
             app:destination="@id/RegisterFragment" />
 
         <action
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/nav_graph"
+            app:popUpToInclusive="true"
             android:id="@+id/action_EnterFragment_to_WelcomeFragment"
             app:destination="@id/WelcomeFragment" />
 
@@ -78,6 +87,9 @@
         tools:layout="@layout/register_fragment">
 
         <action
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/nav_graph"
+            app:popUpToInclusive="true"
             android:id="@+id/action_RegisterFragment_to_WelcomeFragment"
             app:destination="@id/WelcomeFragment" />
 

@@ -11,16 +11,23 @@ import androidx.navigation.fragment.findNavController
 import com.albatros.kplanner.databinding.WelcomeFragmentBinding
 import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.domain.playFadeOutAnimation
+import com.albatros.kplanner.ui.activity.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class WelcomeFragment : Fragment() {
+class WelcomeFragment : Fragment(), MainActivity.IOnBackPressed {
 
     private val viewModel: WelcomeViewModel by viewModel()
     private lateinit var binding: WelcomeFragmentBinding
+
+    override fun onBackPressed(): Boolean {
+        activity?.finish()
+        activity?.finishAffinity()
+        return true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,16 +48,16 @@ class WelcomeFragment : Fragment() {
         binding.welcomeText.text = text
 
         lifecycleScope.launch {
-            binding.welcomeText.playFadeInAnimation(500L)
-            delay(500)
+            binding.welcomeText.playFadeInAnimation(300L)
+            delay(300)
 
             val animation = TranslateAnimation(0f, 0f, 0f, -400f)
             animation.duration = 1000
             animation.fillAfter = true
             binding.welcomeText.startAnimation(animation)
             delay(2000)
-            binding.welcomeText.playFadeOutAnimation(500L)
-            delay(500L)
+            binding.welcomeText.playFadeOutAnimation(300L)
+            delay(300L)
 
             val direction = WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment()
             findNavController().navigate(direction)

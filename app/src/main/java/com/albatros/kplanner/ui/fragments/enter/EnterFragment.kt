@@ -51,9 +51,9 @@ class EnterFragment : Fragment() {
         binding.enterText.setOnClickListener { }
 
         lifecycleScope.launch {
-            binding.register.playFadeOutAnimation(500L)
-            binding.enterText.playFadeOutAnimation(500L)
-            delay(700)
+            binding.register.playFadeOutAnimation(300L)
+            binding.enterText.playFadeOutAnimation(300L)
+            delay(300L)
 
             val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
             findNavController().navigate(direction)

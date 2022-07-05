@@ -14,11 +14,18 @@ import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.domain.playFadeOutAnimation
 import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.model.util.EnterResult
+import com.albatros.kplanner.ui.activity.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
+
+    override fun onBackPressed(): Boolean {
+        activity?.finish()
+        activity?.finishAffinity()
+        return true
+    }
 
     private lateinit var binding: RegisterFragmentBinding
     private val viewModel: RegisterViewModel by viewModel()
@@ -57,8 +64,8 @@ class RegisterFragment : Fragment() {
         binding.registerText.setOnClickListener { }
 
         lifecycleScope.launch {
-            binding.registerText.playFadeOutAnimation(500L)
-            delay(700)
+            binding.registerText.playFadeOutAnimation(300L)
+            delay(300L)
             val direction = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
             findNavController().navigate(direction)
         }

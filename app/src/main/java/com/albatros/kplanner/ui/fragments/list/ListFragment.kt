@@ -1,5 +1,7 @@
 package com.albatros.kplanner.ui.fragments.list
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.*
@@ -34,6 +36,7 @@ class ListFragment : Fragment() {
 
     var selecting = false
     var selected: MutableList<DiraNote> = mutableListOf()
+    var selectedViews: MutableList<CardView> = mutableListOf()
 
     private val listener = object: NoteAdapterListener {
         override fun onNoteSelected(note: DiraNote, view: CardView) {
@@ -41,6 +44,7 @@ class ListFragment : Fragment() {
                     return
             (activity as MainActivity).binding.toolbar.startActionMode(actionModeCallback)
             selected.add(note)
+            selectedViews.add(view)
             view.setCardBackgroundColor(resources.getColor(android.R.color.darker_gray, context?.theme))
         }
 
@@ -48,10 +52,12 @@ class ListFragment : Fragment() {
             if (selecting) {
                 if (selected.contains(note)) {
                     selected.remove(note)
+                    selectedViews.remove(view)
                     view.setCardBackgroundColor(resources.getColor(android.R.color.white, context?.theme))
                     return
                 }
                 selected.add(note)
+                selectedViews.add(view)
                 view.setCardBackgroundColor(resources.getColor(android.R.color.darker_gray, context?.theme))
             }
         }
@@ -75,7 +81,12 @@ class ListFragment : Fragment() {
                 true
             }
             R.id.action_add -> {
-                viewModel.addNotes(selected.toMutableList())
+                if (selected.isNotEmpty())
+                    viewModel.addNotes(selected.toMutableList())
+
+                selectedViews.forEach {
+                    view -> view.setCardBackgroundColor(resources.getColor(android.R.color.white, context?.theme))
+                }
                 mode?.finish()
                 true
             }
@@ -86,6 +97,10 @@ class ListFragment : Fragment() {
         override fun onDestroyActionMode(mode: ActionMode?) {
             selecting = false
             selected.clear()
+            selectedViews.forEach {
+                    view -> view.setCardBackgroundColor(resources.getColor(android.R.color.white, context?.theme))
+            }
+            selectedViews.clear()
         }
     }
 
