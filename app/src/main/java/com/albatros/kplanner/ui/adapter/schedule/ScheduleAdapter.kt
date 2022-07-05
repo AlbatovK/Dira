@@ -61,6 +61,7 @@ class ScheduleAdapter(
 
                     cardView.playFadeInAnimation(500L)
                     if (note.finished) {
+                        doneImg.setImageResource(R.drawable.ic_checkbox_checked)
                         doneImg.setColorFilter(root.context.resources.getColor(R.color.neon_green, root.context.theme))
                     }
 

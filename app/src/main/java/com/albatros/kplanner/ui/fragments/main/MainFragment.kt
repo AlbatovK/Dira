@@ -161,6 +161,13 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
         savedInstanceState: Bundle?
     ): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
+        with((activity as MainActivity).binding.toolbar) {
+            setNavigationIcon(R.drawable.ic_exit)
+            setNavigationOnClickListener {
+                activity?.finish()
+                activity?.finishAffinity()
+            }
+        }
         return binding.root
     }
 }
