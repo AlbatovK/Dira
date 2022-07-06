@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 class PreferencesRepo(private val settings: SharedPreferences) {
 
     private val editor = settings.edit()
-    val opened = getOpenedMode() == MODE_OPENED
+    var opened = getOpenedMode() == MODE_OPENED
 
     companion object {
         const val KEY_OPENED = "key_opened"
@@ -39,6 +39,7 @@ class PreferencesRepo(private val settings: SharedPreferences) {
     private fun getOpenedMode() = settings.getString(KEY_OPENED, MODE_NOT_OPENED)
 
     fun setOpened() {
+        opened = true
         with(editor) {
             putString(KEY_OPENED, MODE_OPENED)
             commit()
