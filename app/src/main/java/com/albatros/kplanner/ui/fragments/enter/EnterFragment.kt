@@ -6,7 +6,6 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -84,6 +83,9 @@ class EnterFragment : Fragment() {
 
         binding.passwordEdit.inputType =
             InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+        binding.passwordEdit.setText(viewModel.getLastPassword())
+        binding.addressEdit.setText(viewModel.getLastEmail())
 
         binding.register.setOnClickListener {
             val direction = EnterFragmentDirections.actionEnterFragmentToRegisterFragment()

@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Dira</string>
+    <string name="add_hint">Добавить новые задания.</string>
+    <string name="add_descr">Воспользуйтесь этой кнопкой, чтобы просмотреть список заданий и выбрать из них нужные для себя.</string>
+    <string name="people_hint">Посмотреть список друзей.</string>
+    <string name="people_descr">Воспользуйтесь этой кнопкой, чтобы найти новых друзей и следить за их выполнением заданий.</string>
+    <string name="stats_hint">Посмотреть свой рейтинг.</string>
+    <string name="stats_descr">Воспользуйтесь этой кнопкой, чтобы посмотреть своё место в текущей лиге.</string>
+    <string name="item_descr">Двигайте заметки по вертикали, чтобы настроить их порядок. Свайпните её в сторону, чтобы удалить её. Нажмите на чекбокс, чтобы выполнить.</string>
+    <string name="item_hint">Ежедневные задания.</string>
     <string name="stat_str">Вы выполнили %d из %d</string>
     <string name="points_str">Заработано %d очков за сегодня</string>
     <string name="date_str">Сегодня, %d %s</string>

@@ -12,6 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val host_name = "https://secret-escarpment-88160.herokuapp.com"
 
+private const val settingsName = "settings"
+
 private fun provideApiService(retrofit: Retrofit) =
     retrofit.create(DiraApi::class.java)
 
@@ -32,7 +34,11 @@ private fun provideGson() = GsonBuilder()
     .serializeNulls()
     .create()
 
+private fun provideSharedPreferences(context: Context) =
+    context.getSharedPreferences(settingsName, Context.MODE_PRIVATE)
+
 val appModule = module {
+    single { provideSharedPreferences(get()) }
     single { provideFirebaseAnalytics(get()) }
     single { provideApiService(get()) }
     single { provideRetrofit(get()) }

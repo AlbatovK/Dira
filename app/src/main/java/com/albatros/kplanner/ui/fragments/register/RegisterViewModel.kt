@@ -9,6 +9,7 @@ import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.model.util.EnterResult
 import com.albatros.kplanner.model.api.DiraApi
 import com.albatros.kplanner.model.data.Schedule
+import com.albatros.kplanner.model.repo.PreferencesRepo
 import com.albatros.kplanner.model.repo.UserRepo
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -16,7 +17,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(private val api: DiraApi, private val repo: UserRepo) : ViewModel() {
+class RegisterViewModel(private val api: DiraApi, private val repo: UserRepo, private val prefRepo: PreferencesRepo) : ViewModel() {
 
     private val _user: MutableLiveData<EnterResult> = MutableLiveData()
     val user: LiveData<EnterResult> = _user
@@ -32,6 +33,7 @@ class RegisterViewModel(private val api: DiraApi, private val repo: UserRepo) : 
                 repo.diraUser = apiUser.copy()
                 repo.schedule = Schedule(ownerId = apiUser.tokenId)
                 api.createSchedule(repo.schedule)
+                api.addNote(1L, apiUser.tokenId) // Hardcoded note
                 apiUser
             } catch (e: Exception) {
                 null
@@ -48,6 +50,8 @@ class RegisterViewModel(private val api: DiraApi, private val repo: UserRepo) : 
         _user.value = EnterResult.EntryStarted
         Firebase.auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
             _user.value = EnterResult.EntrySuccess(it.user!!)
+            prefRepo.setEmail(email)
+            prefRepo.setPassword(password)
         }.addOnFailureListener {
             _user.value = EnterResult.EntryFailure(it)
         }

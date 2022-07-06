@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.albatros.kplanner.model.api.DiraApi
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
+import com.albatros.kplanner.model.repo.PreferencesRepo
 import com.albatros.kplanner.model.repo.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val api: DiraApi, private val repo: UserRepo) : ViewModel() {
+class MainViewModel(private val api: DiraApi, private val repo: UserRepo, private val prefRepo: PreferencesRepo) : ViewModel() {
 
     private val _schedule: MutableLiveData<Schedule> = MutableLiveData<Schedule>().apply {
         viewModelScope.launch(Dispatchers.Main) {
@@ -19,6 +20,10 @@ class MainViewModel(private val api: DiraApi, private val repo: UserRepo) : View
             value = repo.schedule
         }
     }
+
+    fun showHints() = !prefRepo.opened
+
+    fun setOpened() = prefRepo.setOpened()
 
     val schedule: LiveData<Schedule> = _schedule
 

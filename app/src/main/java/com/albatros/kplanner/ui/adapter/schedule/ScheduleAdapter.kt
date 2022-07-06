@@ -54,6 +54,11 @@ class ScheduleAdapter(
 
         private fun bind(note: DiraNote?) {
             note?.let {
+
+                if (schedule.tasks.indexOf(note) == 0) {
+                    listener.OnFirstNoteBinded(binding.cardView)
+                }
+
                 with(binding) {
                     title.text = note.title
                     description.text = note.description

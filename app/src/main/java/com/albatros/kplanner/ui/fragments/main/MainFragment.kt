@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,11 @@ import com.albatros.kplanner.model.data.Schedule
 import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapter
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapterListener
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
+import com.getkeepsafe.taptargetview.TapTargetView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -58,11 +64,17 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
+        (activity as MainActivity).binding.toolbar.inflateMenu(R.menu.menu_main)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    private var hintView: CardView? = null
+
     private val listener = object: ScheduleAdapterListener {
+        override fun OnFirstNoteBinded(view: CardView) {
+            hintView = view
+        }
+
         override fun onNoteFinished(note: DiraNote, schedule: Schedule, view: ImageView) {
             if (note.finished) {
                 return
@@ -125,6 +137,51 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        (activity as MainActivity).binding.toolbar.inflateMenu(R.menu.menu_main)
+
+        lifecycleScope.launchWhenCreated {
+            delay(1000)
+           if (viewModel.showHints()) {
+                viewModel.setOpened()
+            val toolbar = (activity as MainActivity).binding.toolbar
+            TapTargetSequence(activity as MainActivity).targets(
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_create, getString(R.string.add_hint), getString(R.string.add_descr)).cancelable(true),
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_people, getString(R.string.people_hint), getString(R.string.people_descr)).cancelable(true),
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_stats, getString(R.string.stats_hint), getString(R.string.stats_descr)).cancelable(true)
+                ).listener(
+                object : TapTargetSequence.Listener {
+                    override fun onSequenceFinish() {
+                        if (hintView == null)
+                            return
+                        TapTargetView.showFor(activity as MainActivity,
+                            TapTarget.forView(hintView, getString(R.string.item_hint),
+                                getString(R.string.item_descr))
+                                .cancelable(true)
+                                .descriptionTextSize(16)
+                                .titleTextSize(18)
+                                .tintTarget(true)
+                            .drawShadow(true)
+                                .targetRadius(80)
+                            .tintTarget(true)
+                            .transparentTarget(true)
+                            .outerCircleColor(R.color.dark_cyan),
+                            object : TapTargetView.Listener() {
+                                override fun onTargetClick(view: TapTargetView) {
+                                    super.onTargetClick(view)
+                                    view.dismiss(true)
+                                }
+                            })
+                    }
+
+                    override fun onSequenceStep(lastTarget: TapTarget?, targetClicked: Boolean) {
+                    }
+
+                    override fun onSequenceCanceled(lastTarget: TapTarget?) {
+                    }
+                }
+                ).start()
+           }
+        }
 
         postponeEnterTransition()
         sharedElementEnterTransition =

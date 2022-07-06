@@ -8,6 +8,7 @@ import com.albatros.kplanner.domain.isEntryValid
 import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.model.util.EnterResult
 import com.albatros.kplanner.model.api.DiraApi
+import com.albatros.kplanner.model.repo.PreferencesRepo
 import com.albatros.kplanner.model.repo.UserRepo
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -15,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class EnterViewModel(private val api: DiraApi, private val repo: UserRepo) : ViewModel() {
+class EnterViewModel(private val api: DiraApi, private val repo: UserRepo, private val prefRepo: PreferencesRepo) : ViewModel() {
 
     private val _userEntryLive: MutableLiveData<EnterResult> = MutableLiveData()
     val userEntryLive: LiveData<EnterResult> = _userEntryLive
@@ -40,6 +41,10 @@ class EnterViewModel(private val api: DiraApi, private val repo: UserRepo) : Vie
         }
     }
 
+    fun getLastPassword() = prefRepo.getPassword()
+
+    fun getLastEmail() = prefRepo.getEmail()
+
     fun authenticate(email: String, password: String) {
         if (!isEntryValid(email, password)) {
             _userEntryLive.value = EnterResult.EntryInvalid
@@ -49,6 +54,8 @@ class EnterViewModel(private val api: DiraApi, private val repo: UserRepo) : Vie
         _userEntryLive.value = EnterResult.EntryStarted
         Firebase.auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
             _userEntryLive.value = EnterResult.EntrySuccess(it.user!!)
+            prefRepo.setEmail(email)
+            prefRepo.setPassword(password)
         }.addOnFailureListener {
             _userEntryLive.value = EnterResult.EntryFailure(it)
         }

@@ -11,11 +11,11 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { EnterViewModel(get(), get()) }
-    viewModel { RegisterViewModel(get(), get()) }
+    viewModel { EnterViewModel(get(), get(), get()) }
+    viewModel { RegisterViewModel(get(), get(), get()) }
     viewModel { WelcomeViewModel(get()) }
     viewModel { ListViewModel(get(), get()) }
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(get(), get(), get()) }
     viewModel { StatsViewModel(get(), get()) }
     viewModel { UsersListViewModel(get(), get()) }
 }
