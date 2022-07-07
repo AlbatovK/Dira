@@ -15,6 +15,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_exit.xml" value="0.142" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_filter.xml" value="0.142" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_filter_active.xml" value="0.142" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_import.xml" value="0.142" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_trophy.xml" value="0.1975" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/activity_bottom_nav.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/activity_main.xml" value="0.1644021739130435" />
@@ -28,6 +29,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/main_fragment.xml" value="0.20680272108843537" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/navigation_fragment.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/note_layout.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/profile_fragment.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/register_fragment.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/stats_fragment.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/stats_view_model_fragment.xml" value="0.1644021739130435" />
@@ -39,6 +41,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/welcome_fragment.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/menu_action.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/menu_main.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/profile_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/user_list_menu.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/xml/anim.xml" value="0.1644021739130435" />
       </map>

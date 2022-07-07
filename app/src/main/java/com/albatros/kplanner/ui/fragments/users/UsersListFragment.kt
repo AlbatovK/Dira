@@ -11,16 +11,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.ListFragmentBinding
 import com.albatros.kplanner.model.data.DiraUser
+import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.user.info.UserAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserInfoAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class UsersListFragment : Fragment() {
+class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
 
     private lateinit var binding: ListFragmentBinding
     private val viewModel: UsersListViewModel by viewModel()
@@ -33,9 +35,16 @@ class UsersListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onBackPressed(): Boolean {
+        val direction = UsersListFragmentDirections.actionUsersListFragmentToMainFragment()
+        findNavController().navigate(direction)
+        return true
+    }
+
     private val listener = object : UserAdapterListener {
         override fun onFriendClicked(user: DiraUser, view: View) {
-            //Toast.makeText(context, "A", Toast.LENGTH_SHORT).show()
+            val direction = UsersListFragmentDirections.actionUserListFragmentToProfileFragment(user)
+            findNavController().navigate(direction)
         }
 
         override fun onUserClicked(user: DiraUser, view: ImageView) {
@@ -59,9 +68,10 @@ class UsersListFragment : Fragment() {
             true
         }
         android.R.id.home -> {
-            super.onOptionsItemSelected(item)
-        }
-        else -> true
+            val direction = UsersListFragmentDirections.actionUsersListFragmentToMainFragment()
+            findNavController().navigate(direction)
+            true
+        } else -> true
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -17,6 +17,15 @@
         android:name="com.albatros.kplanner.ui.fragments.users.UsersListFragment"
         android:label=""
         tools:layout="@layout/users_list_layout" >
+
+        <action
+            android:id="@+id/action_UserListFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+
+        <action
+            android:id="@+id/action_UsersListFragment_to_MainFragment"
+            app:destination="@id/MainFragment" />
+
     </fragment>
 
     <fragment
@@ -36,6 +45,18 @@
         <action
             app:destination="@+id/StatsFragment"
             android:id="@+id/action_mainFragment_to_StatsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:name="com.albatros.kplanner.ui.fragments.profile.ProfileFragment"
+        android:label=""
+        tools:layout="@layout/list_fragment" >
+
+        <argument
+            android:name="user"
+            app:argType="com.albatros.kplanner.model.data.DiraUser" />
 
     </fragment>
 
