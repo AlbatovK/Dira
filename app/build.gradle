@@ -13,11 +13,11 @@ android {
 
     defaultConfig {
         applicationId "com.albatros.kplanner"
-        minSdk 29
+        minSdk 27
         targetSdk 30
         multiDexEnabled true
         versionCode 1
-        versionName "0.31"
+        versionName "0.61"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
