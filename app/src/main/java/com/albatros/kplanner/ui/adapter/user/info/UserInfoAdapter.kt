@@ -12,7 +12,8 @@ import com.albatros.kplanner.model.repo.UserRepo
 class UserInfoAdapter(
     private val users: MutableList<DiraUser>,
     private val owner: DiraUser,
-    private val listener: UserAdapterListener
+    private val listener: UserAdapterListener,
+    private val isSkeleton: Boolean,
 ) : RecyclerView.Adapter<UserInfoAdapter.UserViewHolder>() {
 
     override fun getItemCount(): Int = users.size
@@ -34,6 +35,8 @@ class UserInfoAdapter(
             }
 
         private fun bind(user: DiraUser?) {
+            if (isSkeleton)
+                return
             user?.let {
                 with(binding) {
                     points.text = root.context.getString(

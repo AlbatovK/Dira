@@ -10,28 +10,35 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.ListFragmentBinding
+import com.albatros.kplanner.databinding.UsersListLayoutBinding
+import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.ui.activity.MainActivity
+import com.albatros.kplanner.ui.adapter.note.NoteAdapter
+import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserInfoAdapter
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
 
-    private lateinit var binding: ListFragmentBinding
+    private lateinit var binding: UsersListLayoutBinding
     private val viewModel: UsersListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ListFragmentBinding.inflate(inflater, container, false)
+        binding = UsersListLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -126,8 +133,8 @@ class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
         startPostponedEnterTransition()
 
         viewModel.users.observe(viewLifecycleOwner) {
-            binding.list.adapter = UserInfoAdapter(it.toMutableList(), viewModel.getUser(), listener)
-            binding.list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            binding.userList.adapter = UserInfoAdapter(it.toMutableList(), viewModel.getUser(), listener, false)
+            binding.userList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
 }

@@ -26,17 +26,19 @@
             <TextView
                 android:id="@+id/date"
                 style="@style/NoteCardTextStyleData"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Сегодня, 3 июля"
                 android:layout_marginTop="24dp"
-                android:visibility="invisible"
                 android:gravity="center"
+                android:text="Сегодня, 3 июля"
                 android:textColor="@color/dark_cyan"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list"
+                android:id="@+id/list_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"

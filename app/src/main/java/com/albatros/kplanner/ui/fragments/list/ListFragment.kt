@@ -17,6 +17,8 @@ import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.note.NoteAdapter
 import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -121,8 +123,22 @@ class ListFragment : Fragment() {
             }
         }
 
+        binding.list.loadSkeleton(R.layout.note_layout) {
+            itemCount(3)
+            color(R.color.gray_light)
+            shimmer(true)
+            lineSpacing(20f)
+        }
+
+        binding.list.adapter = NoteAdapter(mutableListOf(DiraNote(), DiraNote(), DiraNote()), object : NoteAdapterListener {
+            override fun onNoteSelected(note: DiraNote, view: CardView) {}
+            override fun onNoteClicked(note: DiraNote, view: CardView) {}
+        }, true)
+        binding.list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         viewModel.notes.observe(viewLifecycleOwner) {
-            binding.list.adapter = NoteAdapter(it.toMutableList(), listener)
+            binding.list.hideSkeleton()
+            binding.list.adapter = NoteAdapter(it.toMutableList(), listener, false)
             binding.list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }

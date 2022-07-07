@@ -22,11 +22,15 @@ import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
 import com.albatros.kplanner.ui.activity.MainActivity
+import com.albatros.kplanner.ui.adapter.note.NoteAdapter
+import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapter
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapterListener
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.getkeepsafe.taptargetview.TapTargetView
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -139,6 +143,16 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
         setHasOptionsMenu(true)
         (activity as MainActivity).binding.toolbar.inflateMenu(R.menu.menu_main)
 
+        binding.constraint.loadSkeleton {
+            color(R.color.gray_light)
+            shimmer(true)
+        }
+
+        binding.date.loadSkeleton {
+            color(R.color.gray_light)
+            shimmer(true)
+        }
+
         lifecycleScope.launchWhenCreated {
             delay(1000)
            if (viewModel.showHints()) {
@@ -201,7 +215,6 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
             )
             binding.progressBar.max = it.tasks.size
             binding.progressBar.progress = it.tasks.count { s -> s.finished }
-            binding.cardView.playFadeInAnimation(500L)
 
             val calendar = Calendar.getInstance()
             binding.date.text = context?.getString(
@@ -209,7 +222,8 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
                 calendar.get(Calendar.DAY_OF_MONTH),
                 getMonth(calendar.get(Calendar.MONTH))
             )
-            binding.date.playFadeInAnimation(500L)
+            binding.date.hideSkeleton()
+            binding.constraint.hideSkeleton()
         }
     }
 

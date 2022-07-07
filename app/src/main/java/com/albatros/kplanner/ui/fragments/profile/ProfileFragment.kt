@@ -21,6 +21,8 @@ import com.albatros.kplanner.model.data.Schedule
 import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapter
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapterListener
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.util.*
@@ -73,16 +75,21 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        binding.date.loadSkeleton {
+            color(R.color.gray_light)
+            shimmer(true)
+        }
+
         viewModel.userSchedule.observe(viewLifecycleOwner) {
-            binding.list.adapter = ScheduleAdapter(it, listener)
-            binding.list.layoutManager = LinearLayoutManager(context)
+            binding.listProfile.adapter = ScheduleAdapter(it, listener)
+            binding.listProfile.layoutManager = LinearLayoutManager(context)
             val calendar = Calendar.getInstance()
             binding.date.text = context?.getString(
                 R.string.date_str,
                 calendar.get(Calendar.DAY_OF_MONTH),
                 getMonth(calendar.get(Calendar.MONTH))
             )
-            binding.date.playFadeInAnimation(500L)
+            binding.date.hideSkeleton()
         }
 
         (activity as MainActivity).binding.toolbar.title = arguments.user.nickname

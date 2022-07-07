@@ -14,7 +14,8 @@ import com.albatros.kplanner.model.data.DiraNote
 
 class NoteAdapter(
     private val notes: MutableList<DiraNote>,
-    private val listener: NoteAdapterListener
+    private val listener: NoteAdapterListener,
+    private val isSkeleton: Boolean,
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun getItemCount(): Int = notes.size
@@ -36,6 +37,8 @@ class NoteAdapter(
             }
 
         private fun bind(note: DiraNote?) {
+            if (isSkeleton)
+                return
             note?.let {
                 with(binding) {
                     ViewCompat.setTransitionName(cardView, note.id.toString())
