@@ -39,14 +39,7 @@ class ListFragment : Fragment() {
     var selectedViews: MutableList<CardView> = mutableListOf()
 
     private val listener = object: NoteAdapterListener {
-        override fun onNoteSelected(note: DiraNote, view: CardView) {
-            if (selecting)
-                    return
-            (activity as MainActivity).binding.toolbar.startActionMode(actionModeCallback)
-            selected.add(note)
-            selectedViews.add(view)
-            view.setCardBackgroundColor(resources.getColor(android.R.color.darker_gray, context?.theme))
-        }
+        override fun onNoteSelected(note: DiraNote, view: CardView) {}
 
         override fun onNoteClicked(note: DiraNote, view: CardView) {
             if (selecting) {
@@ -58,8 +51,14 @@ class ListFragment : Fragment() {
                 }
                 selected.add(note)
                 selectedViews.add(view)
-                view.setCardBackgroundColor(resources.getColor(android.R.color.darker_gray, context?.theme))
+                view.setCardBackgroundColor(resources.getColor(R.color.gray_light, context?.theme))
+                return
             }
+            (activity as MainActivity).binding.toolbar.startActionMode(actionModeCallback)
+            selected.add(note)
+            selectedViews.add(view)
+            selecting = true
+            view.setCardBackgroundColor(resources.getColor(R.color.gray_light, context?.theme))
         }
     }
 

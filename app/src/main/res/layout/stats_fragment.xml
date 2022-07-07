@@ -72,14 +72,17 @@
             <TextView
                 android:id="@+id/name"
                 style="@style/CardTextStyleTitle"
-                android:layout_marginStart="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/dark_cyan"
                 android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@id/league_img"
+                app:flow_horizontalBias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
 
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/league_img"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

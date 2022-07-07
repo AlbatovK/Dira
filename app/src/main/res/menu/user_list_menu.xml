@@ -15,5 +15,18 @@
         android:orderInCategory="2"
         android:title="@string/app_name"
         android:icon="@drawable/ic_filter"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" >
+
+        <menu>
+
+            <item android:id="@+id/action_filter_friends"
+                android:title="Только друзья" />
+
+            <item android:id="@+id/action_no_filter"
+                android:title="Без фильтра" />
+
+        </menu>
+
+    </item>
+
 </menu>

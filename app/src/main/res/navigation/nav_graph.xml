@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/ListFragment"
         android:name="com.albatros.kplanner.ui.fragments.list.ListFragment"
-        android:label="Выбор макета"
+        android:label="Выбор задания"
         tools:layout="@layout/list_fragment" >
 
         <action

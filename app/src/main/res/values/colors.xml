@@ -23,4 +23,5 @@
     <color name="violet">#ffcf94da</color>
     <color name="light_green">#ffe7ed9b</color>
     <color name="neon_green">@android:color/holo_green_dark</color>
+    <color name="gray_light">#DCDCDC</color>
 </resources>

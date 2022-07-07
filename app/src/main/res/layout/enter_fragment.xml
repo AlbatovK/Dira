@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="Вход"
+        android:text="Войти"
         android:textColor="@color/dark_cyan"
         android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@+id/password_input" />

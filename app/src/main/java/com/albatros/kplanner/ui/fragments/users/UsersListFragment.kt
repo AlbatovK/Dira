@@ -53,18 +53,13 @@ class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
         }
     }
 
-    private var friendsFiltering = false
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
-        R.id.action_filter -> {
-            friendsFiltering = !friendsFiltering
-            if (friendsFiltering) {
-                item.setIcon(R.drawable.ic_filter_active)
-                viewModel.loadFriends()
-            } else {
-                item.setIcon(R.drawable.ic_filter)
-                viewModel.loadUsersList()
-            }
+        R.id.action_no_filter -> {
+            viewModel.loadUsersList()
+            true
+        }
+        R.id.action_filter_friends -> {
+            viewModel.loadFriends()
             true
         }
         android.R.id.home -> {
@@ -78,7 +73,7 @@ class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
         inflater.inflate(R.menu.user_list_menu, menu)
 
         val searchView = menu.findItem(R.id.action_search).actionView as SearchView
-        searchView.queryHint = "Введите запрос"
+        searchView.queryHint = "Введите имя"
         searchView.setIconifiedByDefault(false)
 
         val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
