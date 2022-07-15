@@ -64,7 +64,7 @@ Android-приложение Directa (сокр. Dira) - это планер, к�
 ```
 MIT License
 
-Copyright (c) 2021 Konstantin Albatov
+Copyright (c) 2022 Konstantin Albatov
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
