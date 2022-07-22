@@ -3,26 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_search"
-        android:title="Поиск"
-        android:orderInCategory="1"
         android:layout_centerInParent="true"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="1"
+        android:title="Поиск"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
     <item
         android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter"
         android:orderInCategory="2"
         android:title="@string/app_name"
-        android:icon="@drawable/ic_filter"
-        app:showAsAction="ifRoom" >
+        app:showAsAction="ifRoom">
 
         <menu>
 
-            <item android:id="@+id/action_filter_friends"
+            <item
+                android:id="@+id/action_filter_friends"
                 android:title="Только друзья" />
 
-            <item android:id="@+id/action_no_filter"
+            <item
+                android:id="@+id/action_no_filter"
                 android:title="Без фильтра" />
 
         </menu>

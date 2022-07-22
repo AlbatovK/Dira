@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/NavigationFragment">
+
+    <fragment
+        android:id="@+id/NavigationFragment"
+        android:name="com.albatros.kplanner.ui.fragments.navigation.NavigationFragment"
+        android:label="Главный экран"
+        tools:layout="@layout/navigation_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.albatros.kplanner.ui.fragments.main.MainFragment"
+        android:label="Главный экран"
+        tools:layout="@layout/main_fragment" />
+
+    <fragment
+        android:id="@+id/list_fragment"
+        android:name="com.albatros.kplanner.ui.fragments.list.ListFragment"
+        android:label="Список заданий"
+        tools:layout="@layout/list_fragment" />
+
+    <fragment
+        android:id="@+id/users_fragment"
+        android:name="com.albatros.kplanner.ui.fragments.users.UsersListFragment"
+        android:label="Пользователи"
+        tools:layout="@layout/users_list_layout" />
+
+    <fragment
+        android:id="@+id/stats_fragment"
+        android:name="com.albatros.kplanner.ui.fragments.stats.StatsFragment"
+        android:label="Статистика"
+        tools:layout="@layout/stats_fragment" />
+
+</navigation>

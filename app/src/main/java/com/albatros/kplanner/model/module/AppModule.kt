@@ -10,7 +10,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val host_name = "https://secret-escarpment-88160.herokuapp.com"
+private const val host_name = "https://diraserver.herokuapp.com"
 
 private const val settingsName = "settings"
 
@@ -21,9 +21,6 @@ private fun provideRetrofit(factory: GsonConverterFactory) = Retrofit.Builder()
     .baseUrl(host_name)
     .addConverterFactory(factory)
     .build()
-
-private fun provideFirebaseAnalytics(context: Context) =
-    FirebaseAnalytics.getInstance(context)
 
 private fun provideGsonFactory(gson: Gson) =
     GsonConverterFactory.create(gson)
@@ -36,6 +33,9 @@ private fun provideGson() = GsonBuilder()
 
 private fun provideSharedPreferences(context: Context) =
     context.getSharedPreferences(settingsName, Context.MODE_PRIVATE)
+
+private fun provideFirebaseAnalytics(context: Context) =
+    FirebaseAnalytics.getInstance(context)
 
 val appModule = module {
     single { provideSharedPreferences(get()) }

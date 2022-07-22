@@ -8,8 +8,10 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +28,8 @@ import com.albatros.kplanner.ui.adapter.note.NoteAdapter
 import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapter
 import com.albatros.kplanner.ui.adapter.schedule.ScheduleAdapterListener
+import com.albatros.kplanner.ui.fragments.navigation.NavigationFragment
+import com.albatros.kplanner.ui.fragments.navigation.NavigationFragmentDirections
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.getkeepsafe.taptargetview.TapTargetView
@@ -37,40 +41,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class MainFragment : Fragment(), MainActivity.IOnBackPressed {
+class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: MainFragmentBinding
 
-    override fun onBackPressed(): Boolean {
-        activity?.finish()
-        activity?.finishAffinity()
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
-        R.id.action_create -> {
-            val direction = MainFragmentDirections.actionMainFragmentToListFragment()
-            findNavController().navigate(direction)
-            true
-        }
-        R.id.action_people -> {
-            val direction = MainFragmentDirections.actionMainFragmentToUsersListFragment()
-            findNavController().navigate(direction)
-            true
-        }
-        R.id.action_stats -> {
-            val direction = MainFragmentDirections.actionMainFragmentToStatsFragment()
-            findNavController().navigate(direction)
-            true
-        }
-        else -> false
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).binding.toolbar.inflateMenu(R.menu.menu_main)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 
     private var hintView: CardView? = null
 
@@ -140,8 +115,7 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
-        (activity as MainActivity).binding.toolbar.inflateMenu(R.menu.menu_main)
+
 
         binding.constraint.loadSkeleton {
             color(R.color.gray_light)
@@ -154,6 +128,7 @@ class MainFragment : Fragment(), MainActivity.IOnBackPressed {
         }
 
         lifecycleScope.launchWhenCreated {
+            return@launchWhenCreated
             delay(1000)
            if (viewModel.showHints()) {
                 viewModel.setOpened()

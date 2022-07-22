@@ -8,7 +8,9 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,10 +66,9 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        postponeEnterTransition()
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        startPostponedEnterTransition()
+        (activity as MainActivity).binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToDrawerFragment())
+        }
 
         viewModel.onImported.observe(viewLifecycleOwner) {
             if (it) {

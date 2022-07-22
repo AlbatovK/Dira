@@ -3,6 +3,7 @@ package com.albatros.kplanner.model.module
 import com.albatros.kplanner.ui.fragments.enter.EnterViewModel
 import com.albatros.kplanner.ui.fragments.list.ListViewModel
 import com.albatros.kplanner.ui.fragments.main.MainViewModel
+import com.albatros.kplanner.ui.fragments.navigation.NavigationViewModel
 import com.albatros.kplanner.ui.fragments.profile.ProfileViewModel
 import com.albatros.kplanner.ui.fragments.register.RegisterViewModel
 import com.albatros.kplanner.ui.fragments.stats.StatsViewModel
@@ -18,6 +19,7 @@ val viewModelModule = module {
     viewModel { ListViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { StatsViewModel(get(), get()) }
+    viewModel { NavigationViewModel() }
     viewModel { UsersListViewModel(get(), get()) }
     viewModel { parameters -> ProfileViewModel(get(), get(), parameters.get()) }
 }

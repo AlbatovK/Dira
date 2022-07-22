@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/main_fragment"
+        android:icon="@drawable/ic_home"
+        android:title="Дом" />
+
+    <item
+        android:id="@+id/NavigationFragment"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Задания" />
+
+    <item
+        android:id="@+id/users_fragment"
+        android:icon="@drawable/ic_account"
+        android:title="Пользователи" />
+
+    <item
+        android:id="@+id/stats_fragment"
+        android:icon="@drawable/ic_trophy"
+        android:title="Статистика" />
+
+        <item android:title="Ну и ещё что-то">
+            <menu>
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_trophy"
+                    android:title="Share" />
+                <item
+                    android:id="@+id/nav_send"
+                    android:icon="@drawable/ic_exit"
+                    android:title="Выход" />
+            </menu>
+        </item>
+
+    </group>
+
+
+
+</menu>

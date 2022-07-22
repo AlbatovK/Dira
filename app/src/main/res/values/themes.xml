@@ -70,8 +70,8 @@
     </style>
 
     <style name="Theme.KPlanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.KPlanner.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Theme.KPlanner.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppBarTextAppearance">
         <item name="android:fontFamily">@font/navigo_medium</item>

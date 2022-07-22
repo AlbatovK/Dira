@@ -49,17 +49,17 @@ class WelcomeFragment : Fragment(), MainActivity.IOnBackPressed {
 
         lifecycleScope.launch {
             binding.welcomeText.playFadeInAnimation(300L)
-            delay(300)
+            delay(300L)
 
             val animation = TranslateAnimation(0f, 0f, 0f, -400f)
-            animation.duration = 1000
+            animation.duration = 1000L
             animation.fillAfter = true
             binding.welcomeText.startAnimation(animation)
-            delay(2000)
+            delay(2000L)
             binding.welcomeText.playFadeOutAnimation(300L)
             delay(300L)
 
-            val direction = WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment()
+            val direction = WelcomeFragmentDirections.actionWelcomeFragmentToNavigationFragment()
             findNavController().navigate(direction)
         }
     }

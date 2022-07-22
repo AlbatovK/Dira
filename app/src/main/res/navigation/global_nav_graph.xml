@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/global_nav_graph"
+    app:startDestination="@id/EnterFragment">
+
+    <fragment
+        android:id="@+id/NavigationFragment"
+        android:name="com.albatros.kplanner.ui.fragments.navigation.NavigationFragment"
+        android:label=""
+        tools:layout="@layout/navigation_fragment">
+
+        <action
+            android:id="@+id/action_NavigationFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:name="com.albatros.kplanner.ui.fragments.profile.ProfileFragment"
+        android:label=""
+        tools:layout="@layout/list_fragment">
+
+        <argument
+            android:name="user"
+            app:argType="com.albatros.kplanner.model.data.DiraUser" />
+
+        <action
+            android:id="@+id/action_ProfileFragment_to_DrawerFragment"
+            app:destination="@id/DrawerFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/WelcomeFragment"
+        android:name="com.albatros.kplanner.ui.fragments.welcome.WelcomeFragment"
+        android:label=""
+        tools:layout="@layout/welcome_fragment">
+
+        <action
+            android:id="@+id/action_WelcomeFragment_to_NavigationFragment"
+            app:destination="@id/DrawerFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/global_nav_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/DrawerFragment"
+        android:name="com.albatros.kplanner.ui.fragments.drawer.DrawerFragment"
+        android:label=""
+        tools:layout="@layout/drawer_fragment">
+
+        <action
+            android:id="@+id/action_DrawerFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/EnterFragment"
+        android:name="com.albatros.kplanner.ui.fragments.enter.EnterFragment"
+        android:label=""
+        tools:layout="@layout/enter_fragment">
+
+        <action
+            android:id="@+id/action_EnterFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/global_nav_graph"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_EnterFragment_to_WelcomeFragment"
+            app:destination="@id/WelcomeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/global_nav_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegisterFragment"
+        android:name="com.albatros.kplanner.ui.fragments.register.RegisterFragment"
+        android:label=""
+        tools:layout="@layout/register_fragment">
+
+        <action
+            android:id="@+id/action_RegisterFragment_to_WelcomeFragment"
+            app:destination="@id/WelcomeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/global_nav_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+</navigation>

@@ -8,6 +8,7 @@ import com.albatros.kplanner.domain.isEntryValid
 import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.model.util.EnterResult
 import com.albatros.kplanner.model.api.DiraApi
+import com.albatros.kplanner.model.data.NotesIdsList
 import com.albatros.kplanner.model.data.Schedule
 import com.albatros.kplanner.model.repo.PreferencesRepo
 import com.albatros.kplanner.model.repo.UserRepo
@@ -33,7 +34,7 @@ class RegisterViewModel(private val api: DiraApi, private val repo: UserRepo, pr
                 repo.diraUser = apiUser.copy()
                 repo.schedule = Schedule(ownerId = apiUser.tokenId)
                 api.createSchedule(repo.schedule)
-                api.addNote(1L, apiUser.tokenId) // Hardcoded note
+                api.addNotes(NotesIdsList(listOf(1L)), apiUser.tokenId) // Hardcoded note
                 apiUser
             } catch (e: Exception) {
                 null

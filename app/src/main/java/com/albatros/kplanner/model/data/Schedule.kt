@@ -8,13 +8,17 @@ import java.util.*
 
 @Parcelize
 data class Schedule(
+
     @SerializedName("ownerId")
     @Expose
     val ownerId: String = "",
+
     @SerializedName("tasks")
     @Expose
     var tasks: MutableList<DiraNote> = mutableListOf(),
+
     @SerializedName("id")
     @Expose
     var id: Long = UUID.randomUUID().mostSignificantBits
-): Parcelable
+
+) : Parcelable

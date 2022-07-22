@@ -76,11 +76,6 @@ class ListFragment : Fragment() {
         }
 
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean = when(item?.itemId) {
-            android.R.id.home -> {
-                val direction = ListFragmentDirections.actionListFragmentToMainFragment()
-                findNavController().navigate(direction)
-                true
-            }
             R.id.action_add -> {
                 if (selected.isNotEmpty())
                     viewModel.addNotes(selected.toMutableList())
@@ -111,16 +106,7 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        postponeEnterTransition()
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        startPostponedEnterTransition()
-
         viewModel.noteAdded.observe(viewLifecycleOwner) {
-            if (it) {
-                val direction = ListFragmentDirections.actionListFragmentToMainFragment()
-                findNavController().navigate(direction)
-            }
         }
 
         binding.list.loadSkeleton(R.layout.note_layout) {

@@ -38,6 +38,6 @@ data class DiraUser(
 
     @SerializedName("scoreOfWeek")
     @Expose
-    var scoreOfWeek: Int = 0,
+    var scoreOfWeek: Int = 0
 
 ) : Parcelable

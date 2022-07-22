@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/action_import"
+        android:icon="@drawable/ic_import"
         android:orderInCategory="1"
         android:title="@string/app_name"
-        android:icon="@drawable/ic_import"
         app:showAsAction="always" />
 </menu>

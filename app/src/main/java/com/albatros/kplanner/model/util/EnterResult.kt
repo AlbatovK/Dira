@@ -6,5 +6,5 @@ sealed class EnterResult {
     data class EntrySuccess(val user: FirebaseUser) : EnterResult()
     data class EntryFailure(val exception: Exception) : EnterResult()
     object EntryInvalid : EnterResult()
-    object EntryStarted: EnterResult()
+    object EntryStarted : EnterResult()
 }

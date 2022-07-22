@@ -22,6 +22,6 @@
     <color name="baby_blue">#ff81deea</color>
     <color name="violet">#ffcf94da</color>
     <color name="light_green">#ffe7ed9b</color>
-    <color name="neon_green">@android:color/holo_green_dark</color>
+    <color name="neon_green">#669900</color>
     <color name="gray_light">#DCDCDC</color>
 </resources>

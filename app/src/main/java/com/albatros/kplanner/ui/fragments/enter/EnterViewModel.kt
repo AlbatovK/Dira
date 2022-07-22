@@ -24,12 +24,6 @@ class EnterViewModel(private val api: DiraApi, private val repo: UserRepo, priva
     private val _diraUser: MutableLiveData<DiraUser?> = MutableLiveData()
     val diraUser: LiveData<DiraUser?> = _diraUser
 
-    init {
-        viewModelScope.launch(Dispatchers.Main) {
-            try { api.preActivate() } catch (e: Exception) {}
-        }
-    }
-
     fun transformDiraUser(user: FirebaseUser) {
         viewModelScope.launch(Dispatchers.Main) {
             _diraUser.value = try {

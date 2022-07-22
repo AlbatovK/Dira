@@ -1,10 +1,15 @@
 package com.albatros.kplanner.model.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class NotesList(
+@Parcelize
+data class NotesIdsList(
+
     @SerializedName("notes")
     @Expose
-    val noteIds: List<DiraNote> = listOf()
-)
+    val notes: List<Long> = listOf()
+
+) : Parcelable

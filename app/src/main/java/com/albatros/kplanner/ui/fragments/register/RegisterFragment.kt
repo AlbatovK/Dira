@@ -2,13 +2,13 @@ package com.albatros.kplanner.ui.fragments.register
 
 import android.os.Bundle
 import android.text.InputType
-import android.transition.TransitionInflater
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.RegisterFragmentBinding
 import com.albatros.kplanner.domain.playFadeInAnimation
 import com.albatros.kplanner.domain.playFadeOutAnimation
@@ -32,12 +32,8 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
 
     private val onUserCreated = Observer<EnterResult> {
         when (it) {
-            is EnterResult.EntryStarted -> {
-
-            }
-            is EnterResult.EntryFailure -> {
-                binding.passwordInput.helperText = it.exception.message
-            }
+            is EnterResult.EntryStarted -> { }
+            is EnterResult.EntryFailure -> { binding.passwordInput.helperText = it.exception.message }
             is EnterResult.EntrySuccess -> {
 
                 binding.passwordInput.playFadeOutAnimation(1000L)
@@ -82,11 +78,6 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        postponeEnterTransition()
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        startPostponedEnterTransition()
 
         viewModel.user.observe(viewLifecycleOwner, onUserCreated)
         viewModel.diraUser.observe(viewLifecycleOwner, onDiraUserCreated)

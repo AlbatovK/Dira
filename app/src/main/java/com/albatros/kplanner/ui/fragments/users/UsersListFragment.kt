@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
@@ -24,12 +25,14 @@ import com.albatros.kplanner.ui.adapter.note.NoteAdapter
 import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserInfoAdapter
+import com.albatros.kplanner.ui.fragments.drawer.DrawerFragmentDirections
+import com.albatros.kplanner.ui.fragments.navigation.NavigationFragmentDirections
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
+class UsersListFragment : Fragment() {
 
     private lateinit var binding: UsersListLayoutBinding
     private val viewModel: UsersListViewModel by viewModel()
@@ -42,16 +45,11 @@ class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
         return binding.root
     }
 
-    override fun onBackPressed(): Boolean {
-        val direction = UsersListFragmentDirections.actionUsersListFragmentToMainFragment()
-        findNavController().navigate(direction)
-        return true
-    }
-
     private val listener = object : UserAdapterListener {
+
         override fun onFriendClicked(user: DiraUser, view: View) {
-            val direction = UsersListFragmentDirections.actionUserListFragmentToProfileFragment(user)
-            findNavController().navigate(direction)
+            val direction = DrawerFragmentDirections.actionDrawerFragmentToProfileFragment(user)
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main).navigate(direction)
         }
 
         override fun onUserClicked(user: DiraUser, view: ImageView) {
@@ -67,11 +65,6 @@ class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
         }
         R.id.action_filter_friends -> {
             viewModel.loadFriends()
-            true
-        }
-        android.R.id.home -> {
-            val direction = UsersListFragmentDirections.actionUsersListFragmentToMainFragment()
-            findNavController().navigate(direction)
             true
         } else -> true
     }
@@ -105,6 +98,7 @@ class UsersListFragment : Fragment(), MainActivity.IOnBackPressed {
         }
 
         val queryListener = object : SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.trim()?.lowercase()?.let { viewModel.fetchByTopics(query) }
                 return true

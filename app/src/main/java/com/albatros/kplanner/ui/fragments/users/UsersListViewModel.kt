@@ -1,14 +1,11 @@
 package com.albatros.kplanner.ui.fragments.users
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.albatros.kplanner.model.api.DiraApi
-import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.model.data.NotesList
 import com.albatros.kplanner.model.repo.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,9 +14,9 @@ class UsersListViewModel(private val api: DiraApi, private val repo: UserRepo) :
 
     private var allUsers = mutableListOf<DiraUser>()
 
-    private val _users: MutableLiveData<List<DiraUser>> = MutableLiveData<List<DiraUser>>().apply {
+    private val _users: MutableLiveData<List<DiraUser>> = MutableLiveData<List<DiraUser>>(listOf()).apply {
         viewModelScope.launch(Dispatchers.Main) {
-            val list = api.getAllUsers().toMutableList()
+            val list = api.getUsers(0, 10).toMutableList()
             list.remove(repo.diraUser)
             allUsers = list.sortedByDescending(DiraUser::score).toMutableList()
             value = list.sortedByDescending(DiraUser::score)
