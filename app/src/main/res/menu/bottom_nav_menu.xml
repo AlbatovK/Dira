@@ -4,25 +4,25 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-    <item
-        android:id="@+id/main_fragment"
-        android:icon="@drawable/ic_home"
-        android:title="Дом" />
+        <item
+            android:id="@+id/main_fragment"
+            android:icon="@drawable/ic_home"
+            android:title="Дом" />
 
-    <item
-        android:id="@+id/list_fragment"
-        android:icon="@drawable/ic_dashboard"
-        android:title="Задания" />
+        <item
+            android:id="@+id/list_fragment"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Задания" />
 
-    <item
-        android:id="@+id/users_fragment"
-        android:icon="@drawable/ic_account"
-        android:title="Пользователи" />
+        <item
+            android:id="@+id/users_fragment"
+            android:icon="@drawable/ic_account"
+            android:title="Пользователи" />
 
-    <item
-        android:id="@+id/stats_fragment"
-        android:icon="@drawable/ic_trophy"
-        android:title="Статистика" />
+        <item
+            android:id="@+id/stats_fragment"
+            android:icon="@drawable/ic_trophy"
+            android:title="Статистика" />
 
     </group>
 

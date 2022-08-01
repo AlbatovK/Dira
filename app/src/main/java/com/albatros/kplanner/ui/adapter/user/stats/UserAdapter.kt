@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.UserLayoutBinding
-import com.albatros.kplanner.domain.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.playFadeInAnimation
 import com.albatros.kplanner.model.data.DiraUser
 
 class UserAdapter(
@@ -33,15 +33,20 @@ class UserAdapter(
         private fun bind(user: DiraUser?) {
             user?.let {
                 with(binding) {
+
                     points.text = root.context.getString(
                         R.string.points_template_str,
                         user.scoreOfWeek
                     )
-                    name.text = root.context.getString(
+
+                    val text = root.context.getString(
                         R.string.place_str,
                         users.indexOf(user) + 1,
                         user.nickname
                     ) + if (users.indexOf(user) == 0) " \uD83D\uDC51" else ""
+
+                    name.text = text
+
                     root.playFadeInAnimation(500L)
                 }
             }

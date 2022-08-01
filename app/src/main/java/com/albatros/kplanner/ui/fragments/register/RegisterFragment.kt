@@ -1,7 +1,6 @@
 package com.albatros.kplanner.ui.fragments.register
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.albatros.kplanner.databinding.RegisterFragmentBinding
-import com.albatros.kplanner.domain.playFadeInAnimation
-import com.albatros.kplanner.domain.playFadeOutAnimation
+import com.albatros.kplanner.domain.extensions.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.playFadeOutAnimation
+import com.albatros.kplanner.domain.util.AuthResult
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.model.util.EnterResult
 import com.albatros.kplanner.ui.activity.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,19 +29,15 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
     private lateinit var binding: RegisterFragmentBinding
     private val viewModel: RegisterViewModel by viewModel()
 
-    private val onUserCreated = Observer<EnterResult> {
+    private val onUserCreated = Observer<AuthResult> {
         when (it) {
-            is EnterResult.EntryStarted -> { }
-            is EnterResult.EntryFailure -> { binding.passwordInput.helperText = it.exception.message }
-            is EnterResult.EntrySuccess -> {
-
-                binding.passwordInput.playFadeOutAnimation(1000L)
-                binding.addressInput.playFadeOutAnimation(1000L)
-
-                viewModel.transformDiraUser(it.user)
-            }
-            is EnterResult.EntryInvalid -> {
-                binding.passwordInput.helperText = "Input data is invalid. Try again."
+            is AuthResult.AuthProgress -> {}
+            is AuthResult.AuthInvalid -> { binding.passwordInput.helperText = "Input data is invalid. Try again." }
+            is AuthResult.AuthFailure -> { binding.passwordInput.helperText = it.exception.message }
+            is AuthResult.AuthSuccess -> {
+                binding.passwordInput.playFadeOutAnimation(700L)
+                binding.addressInput.playFadeOutAnimation(700L)
+                viewModel.createInternalUser(it.user)
             }
         }
     }
@@ -50,18 +45,15 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
     private val onDiraUserCreated = Observer<DiraUser?> {
         if (it == null) {
             binding.passwordInput.helperText = "Internal server error. Try again."
-            lifecycleScope.launch {
-                binding.passwordInput.playFadeInAnimation(500L)
-                binding.addressInput.playFadeInAnimation(500L)
-            }
+            binding.passwordInput.playFadeInAnimation(500L)
+            binding.addressInput.playFadeInAnimation(500L)
             return@Observer
         }
 
-        binding.registerText.setOnClickListener { }
-
         lifecycleScope.launch {
-            binding.registerText.playFadeOutAnimation(300L)
-            delay(300L)
+            binding.registerText.isClickable = false
+            binding.registerText.playFadeOutAnimation(700L)
+            delay(700)
             val direction = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
             findNavController().navigate(direction)
         }
@@ -69,6 +61,8 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
 
     private fun processUserData() {
         with(binding) {
+            addressInput.helperText = ""
+            passwordInput.helperText = ""
             viewModel.authenticate(
                 addressEdit.text.toString(),
                 passwordEdit.text.toString()
@@ -78,12 +72,10 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(false)
 
-        viewModel.user.observe(viewLifecycleOwner, onUserCreated)
+        viewModel.authResult.observe(viewLifecycleOwner, onUserCreated)
         viewModel.diraUser.observe(viewLifecycleOwner, onDiraUserCreated)
-
-        binding.passwordEdit.inputType =
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
         binding.registerText.setOnClickListener {
             processUserData()

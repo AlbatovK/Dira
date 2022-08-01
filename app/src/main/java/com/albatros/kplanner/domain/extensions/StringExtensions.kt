@@ -1,7 +1,4 @@
-package com.albatros.kplanner.domain
-
-fun isEntryValid(vararg args: String?) =
-    args.none { it.isNullOrBlank() or it.isNullOrEmpty() }
+package com.albatros.kplanner.domain.extensions
 
 val leagueMap = mapOf(
     1 to "Бронзовая лига",
@@ -10,8 +7,6 @@ val leagueMap = mapOf(
     4 to "Платиновая лига",
     5 to "Алмазная лига",
 )
-
-fun getLeague(league: Int) = leagueMap.getOrDefault(league, "Неизвестная лига")
 
 val monthMap = mapOf(
     0 to "января",
@@ -27,5 +22,11 @@ val monthMap = mapOf(
     10 to "ноября",
     11 to "декабря",
 )
+
+fun String.isInvalid() = this.isBlank() or this.isEmpty()
+
+fun isEntryValid(vararg args: String) = args.none { it.isInvalid() }
+
+fun getLeague(league: Int) = leagueMap.getOrDefault(league, "Неизвестная лига")
 
 fun getMonth(pos: Int) = monthMap.getOrDefault(pos, "января")

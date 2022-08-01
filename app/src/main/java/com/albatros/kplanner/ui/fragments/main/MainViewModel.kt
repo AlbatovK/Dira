@@ -4,45 +4,51 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.albatros.kplanner.model.api.DiraApi
+import com.albatros.kplanner.domain.usecase.datatransfer.fetch.InternalDataFetchUseCases
+import com.albatros.kplanner.domain.usecase.datatransfer.get.GetCurrentUserUseCase
+import com.albatros.kplanner.domain.usecase.datatransfer.input.ServerInputUseCases
+import com.albatros.kplanner.domain.usecase.note.NotesUseCases
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
-import com.albatros.kplanner.model.repo.PreferencesRepo
-import com.albatros.kplanner.model.repo.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val api: DiraApi, private val repo: UserRepo, private val prefRepo: PreferencesRepo) : ViewModel() {
+class MainViewModel(
+    private val notesUseCases: NotesUseCases,
+    private val internalDataFetchUseCases: InternalDataFetchUseCases,
+    private val getCurrentUser: GetCurrentUserUseCase,
+    private val serverInputUseCases: ServerInputUseCases
+) : ViewModel() {
 
     private val _schedule: MutableLiveData<Schedule> = MutableLiveData<Schedule>().apply {
         viewModelScope.launch(Dispatchers.Main) {
-            repo.schedule = api.getScheduleByOwnerId(repo.diraUser.tokenId)
-            value = repo.schedule
+            value = internalDataFetchUseCases.loadUsersSchedule(getCurrentUser().tokenId)
         }
     }
 
-    fun showHints() = !prefRepo.opened
-
-    fun setOpened() = prefRepo.setOpened()
-
     val schedule: LiveData<Schedule> = _schedule
 
+    fun removeNoteFromSchedule(pos: Int) {
+        notesUseCases.removeNoteAtFromSchedule(pos)
+    }
+
+    fun moveNote(from: Int, to: Int) {
+        notesUseCases.changeNotePosition(from, to)
+    }
+
     fun finishNote(note: DiraNote) {
-        note.finished = true
-        repo.diraUser.score += note.score
-        repo.diraUser.scoreOfDay += note.score
-        repo.diraUser.scoreOfWeek += note.score
+        notesUseCases.finishNote(note)
         saveState()
     }
 
     fun getUsersDayScore(): Int {
-        return repo.diraUser.scoreOfDay
+        return getCurrentUser().scoreOfDay
     }
 
     fun saveState() {
         viewModelScope.launch(Dispatchers.Main) {
-            api.createSchedule(repo.schedule)
-            api.createUser(repo.diraUser)
+            serverInputUseCases.saveSchedule()
+            serverInputUseCases.saveUser()
         }
     }
 }

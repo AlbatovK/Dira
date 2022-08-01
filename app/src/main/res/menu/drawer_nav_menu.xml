@@ -24,14 +24,10 @@
         android:icon="@drawable/ic_trophy"
         android:title="Статистика" />
 
-        <item android:title="Ну и ещё что-то">
+        <item android:title="Другие действия">
             <menu>
                 <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_trophy"
-                    android:title="Share" />
-                <item
-                    android:id="@+id/nav_send"
+                    android:id="@+id/nav_exit"
                     android:icon="@drawable/ic_exit"
                     android:title="Выход" />
             </menu>

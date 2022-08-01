@@ -7,6 +7,6 @@ import com.albatros.kplanner.model.data.Schedule
 
 interface ScheduleAdapterListener {
     fun onNoteFinished(note: DiraNote, schedule: Schedule, view: ImageView)
-
-    fun OnFirstNoteBinded(view: CardView)
+    fun onItemMoved(fromPosition: Int, toPosition: Int, adapter: ScheduleAdapter): Boolean
+    fun onItemDismiss(position: Int, adapter: ScheduleAdapter)
 }

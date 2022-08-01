@@ -1,17 +1,8 @@
 package com.albatros.kplanner.ui.activity
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -46,12 +37,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-        val res = fragment.childFragmentManager.fragments.lastOrNull()
-        val secChild = (res?.childFragmentManager?.fragments?.lastOrNull() as? NavHostFragment)?.childFragmentManager?.fragments?.lastOrNull()
+        val firstFragment = fragment.childFragmentManager.fragments.lastOrNull()
+        val secChild = (firstFragment?.childFragmentManager?.fragments?.lastOrNull()
+                as? NavHostFragment)?.childFragmentManager?.fragments?.lastOrNull()
 
-        Log.d("AAAAAAAAA", "onBackPressed: ${res?.javaClass?.name ?: "null"} ${secChild?.javaClass?.name ?: "null"}")
-
-        if (res !is IOnBackPressed) {
+        if (firstFragment !is IOnBackPressed) {
             if (secChild !is IOnBackPressed) {
                 super.onBackPressed()
                 return
@@ -59,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             secChild.onBackPressed()
             return
         }
-       res.onBackPressed()
+       firstFragment.onBackPressed()
     }
 
     override fun onSupportNavigateUp(): Boolean {

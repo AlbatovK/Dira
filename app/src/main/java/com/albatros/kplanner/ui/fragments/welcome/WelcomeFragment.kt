@@ -8,14 +8,14 @@ import android.view.animation.TranslateAnimation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.WelcomeFragmentBinding
-import com.albatros.kplanner.domain.playFadeInAnimation
-import com.albatros.kplanner.domain.playFadeOutAnimation
+import com.albatros.kplanner.domain.extensions.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.playFadeOutAnimation
 import com.albatros.kplanner.ui.activity.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 
 class WelcomeFragment : Fragment(), MainActivity.IOnBackPressed {
@@ -39,13 +39,11 @@ class WelcomeFragment : Fragment(), MainActivity.IOnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(false)
 
-        val text = "Добро пожаловать" + "\n" + viewModel.getUserNickname().replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.getDefault()
-            ) else it.toString()
+        viewModel.userNickname.observe(viewLifecycleOwner) {
+            binding.welcomeText.text = requireContext().getString(R.string.welcome_txt, it)
         }
-        binding.welcomeText.text = text
 
         lifecycleScope.launch {
             binding.welcomeText.playFadeInAnimation(300L)

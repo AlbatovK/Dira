@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Dira</string>
     <string name="add_hint">Добавить новые задания.</string>
+    <string name="welcome_txt">Добро пожаловать\n%s</string>
     <string name="add_descr">Воспользуйтесь этой кнопкой, чтобы просмотреть список заданий и выбрать из них нужные для себя.</string>
     <string name="people_hint">Посмотреть список друзей.</string>
     <string name="people_descr">Воспользуйтесь этой кнопкой, чтобы найти новых друзей и следить за их выполнением заданий.</string>

@@ -1,7 +1,6 @@
 package com.albatros.kplanner.ui.fragments.enter
 
 import android.os.Bundle
-import android.text.InputType
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.albatros.kplanner.databinding.EnterFragmentBinding
-import com.albatros.kplanner.domain.playFadeInAnimation
-import com.albatros.kplanner.domain.playFadeOutAnimation
+import com.albatros.kplanner.domain.extensions.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.playFadeOutAnimation
+import com.albatros.kplanner.domain.util.AuthResult
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.model.util.EnterResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,38 +23,38 @@ class EnterFragment : Fragment() {
     private lateinit var binding: EnterFragmentBinding
     private val viewModel: EnterViewModel by viewModel()
 
-    private val onUserEntered = Observer<EnterResult> {
-        when (it) {
-            is EnterResult.EntryInvalid ->  binding.passwordInput.helperText = "Input data is invalid. Try again."
-            is EnterResult.EntryStarted -> { }
-            is EnterResult.EntryFailure -> binding.passwordInput.helperText = it.exception.message
-            is EnterResult.EntrySuccess -> {
-                binding.passwordInput.playFadeOutAnimation(1000L)
-                binding.addressInput.playFadeOutAnimation(1000L)
-                viewModel.transformDiraUser(it.user)
+    private val onAuthCompletedObserver = Observer<AuthResult> {
+        with(binding) {
+            when (it) {
+                is AuthResult.AuthProgress -> {}
+                is AuthResult.AuthInvalid -> passwordInput.helperText = "Input data is invalid. Try again."
+                is AuthResult.AuthFailure -> binding.passwordInput.helperText = it.exception.message
+                is AuthResult.AuthSuccess -> {
+                    binding.passwordInput.playFadeOutAnimation(700L)
+                    binding.addressInput.playFadeOutAnimation(700L)
+                    viewModel.loadInternalUser(it.user)
+                }
             }
         }
     }
 
-    private val onDiraUserCreated = Observer<DiraUser?> {
-        if (it == null) {
-            binding.passwordInput.helperText = "Internal server error. Try again."
-            lifecycleScope.launch {
-                binding.passwordInput.playFadeInAnimation(500L)
-                binding.addressInput.playFadeInAnimation(500L)
+    private val onInternalUserFetched = Observer<DiraUser?> {
+        with(binding) {
+            if (it == null) {
+                passwordInput.helperText = "Internal server error. Try again."
+                passwordInput.playFadeInAnimation(500L)
+                addressInput.playFadeInAnimation(500L)
+                return@Observer
             }
-            return@Observer
-        }
 
-        binding.enterText.setOnClickListener { }
-
-        lifecycleScope.launch {
-            binding.register.playFadeOutAnimation(300L)
-            binding.enterText.playFadeOutAnimation(300L)
-            delay(300L)
-
-            val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
-            findNavController().navigate(direction)
+            lifecycleScope.launch {
+                register.playFadeOutAnimation(700L)
+                enterText.playFadeOutAnimation(700L)
+                enterText.isClickable = false
+                delay(700L)
+                val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
+                findNavController().navigate(direction)
+            }
         }
     }
 
@@ -72,28 +71,28 @@ class EnterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(false)
 
         postponeEnterTransition()
         sharedElementEnterTransition = TransitionInflater.from(context)
             .inflateTransition(android.R.transition.move)
         startPostponedEnterTransition()
 
-        viewModel.userEntryLive.observe(viewLifecycleOwner, onUserEntered)
-        viewModel.diraUser.observe(viewLifecycleOwner, onDiraUserCreated)
-
-        binding.passwordEdit.inputType =
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-
-        binding.passwordEdit.setText(viewModel.getLastPassword())
-        binding.addressEdit.setText(viewModel.getLastEmail())
-
-        binding.register.setOnClickListener {
-            val direction = EnterFragmentDirections.actionEnterFragmentToRegisterFragment()
-            findNavController().navigate(direction)
+        viewModel.lastEnterData.observe(viewLifecycleOwner) {
+            binding.addressEdit.setText(it.first)
+            binding.passwordEdit.setText(it.second)
         }
 
-        binding.enterText.setOnClickListener {
-            processUserData()
+        viewModel.authResult.observe(viewLifecycleOwner, onAuthCompletedObserver)
+        viewModel.diraUser.observe(viewLifecycleOwner, onInternalUserFetched)
+
+        with(binding) {
+            enterText.setOnClickListener { processUserData() }
+            register.setOnClickListener {
+                val direction = EnterFragmentDirections
+                    .actionEnterFragmentToRegisterFragment()
+                findNavController().navigate(direction)
+            }
         }
     }
 

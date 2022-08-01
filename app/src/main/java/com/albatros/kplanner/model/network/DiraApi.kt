@@ -1,8 +1,8 @@
-package com.albatros.kplanner.model.api
+package com.albatros.kplanner.model.network
 
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.model.data.NotesIdsList
+import com.albatros.kplanner.domain.util.NotesIdsResource
 import com.albatros.kplanner.model.data.Schedule
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -27,7 +27,7 @@ interface DiraApi {
     suspend fun getUsersByLeague(@Query("league") league: Int): List<DiraUser>
 
     @POST(value = "/note/add")
-    suspend fun addNotes(@Body notesIdList: NotesIdsList, @Query("user_id") user_id: String)
+    suspend fun addNotes(@Body notesIdList: NotesIdsResource, @Query("user_id") user_id: String)
 
     @GET(value = "/note/get")
     suspend fun getNotes(@Query("from") from: Int, @Query("to") to: Int): List<DiraNote>
@@ -40,5 +40,8 @@ interface DiraApi {
 
     @GET(value = "/schedule/get")
     suspend fun getScheduleByOwnerId(@Query("owner_id") owner_id: String): Schedule
+
+    @GET(value = "user/get/name")
+    suspend fun getUsersByNamePrefix(@Query("prefix") prefix: String): List<DiraUser>
 
 }

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.StatsFragmentBinding
-import com.albatros.kplanner.domain.getLeague
+import com.albatros.kplanner.domain.extensions.getLeague
 import com.albatros.kplanner.ui.adapter.user.stats.UserAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -37,22 +37,21 @@ class StatsFragment : Fragment() {
         startPostponedEnterTransition()
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
-            val drawable = when(user.league) {
-                1 -> AppCompatResources.getDrawable(requireContext(), R.drawable.bronze)
-                2 -> AppCompatResources.getDrawable(requireContext(), R.drawable.silver)
-                3 -> AppCompatResources.getDrawable(requireContext(), R.drawable.gold)
-                4 -> AppCompatResources.getDrawable(requireContext(), R.drawable.platinum)
-                5 -> AppCompatResources.getDrawable(requireContext(), R.drawable.diamond)
-                else -> AppCompatResources.getDrawable(requireContext(), R.drawable.bronze)
+
+            val drawableId = when(user.league) {
+                1 ->  R.drawable.bronze
+                2 ->  R.drawable.silver
+                3 ->  R.drawable.gold
+                4 ->  R.drawable.platinum
+                5 ->  R.drawable.diamond
+                else -> R.drawable.bronze
             }
+
+            val drawable = AppCompatResources.getDrawable(requireContext(), drawableId)
             binding.leagueImg.setImageDrawable(drawable)
             binding.leagueName.text = getLeague(user.league)
             binding.points.text = context?.getString(R.string.points_template_str, user.scoreOfWeek)
-            binding.name.text = user.nickname.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(
-                    Locale.getDefault()
-                ) else it.toString()
-            }
+            binding.name.text = user.nickname
         }
 
         viewModel.leagueUsers.observe(viewLifecycleOwner) {

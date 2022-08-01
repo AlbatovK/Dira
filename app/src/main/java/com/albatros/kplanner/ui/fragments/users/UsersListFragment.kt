@@ -4,31 +4,19 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
-import com.albatros.kplanner.databinding.ListFragmentBinding
 import com.albatros.kplanner.databinding.UsersListLayoutBinding
-import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.ui.activity.MainActivity
-import com.albatros.kplanner.ui.adapter.note.NoteAdapter
-import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserInfoAdapter
 import com.albatros.kplanner.ui.fragments.drawer.DrawerFragmentDirections
-import com.albatros.kplanner.ui.fragments.navigation.NavigationFragmentDirections
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

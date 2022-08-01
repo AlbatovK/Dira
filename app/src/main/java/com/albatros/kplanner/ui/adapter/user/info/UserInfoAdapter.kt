@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.UserInfoBinding
-import com.albatros.kplanner.domain.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.playFadeInAnimation
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.model.repo.UserRepo
 
 class UserInfoAdapter(
     private val users: MutableList<DiraUser>,
@@ -23,9 +22,12 @@ class UserInfoAdapter(
         return UserViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) { holder.user = users[position] }
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.user = users[position]
+    }
 
-    inner class UserViewHolder(private val binding: UserInfoBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class UserViewHolder(private val binding: UserInfoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         var user: DiraUser? = null
             get() = field!!
@@ -39,10 +41,12 @@ class UserInfoAdapter(
                 return
             user?.let {
                 with(binding) {
+
                     points.text = root.context.getString(
                         R.string.points_template_str,
                         user.scoreOfWeek
                     )
+
                     name.text = root.context.getString(
                         R.string.place_str,
                         users.indexOf(user) + 1,
@@ -50,15 +54,15 @@ class UserInfoAdapter(
                     )
 
                     var isFriend = owner.friendsIds.contains(user.tokenId)
-                    binding.image.setImageResource(
+                    image.setImageResource(
                         if (isFriend) R.drawable.ic_account else R.drawable.ic_add_friend
                     )
 
-                    binding.image.setOnClickListener {
+                    image.setOnClickListener {
                         if (isFriend) {
-                            listener.onFriendClicked(user, binding.cardView)
+                            listener.onFriendClicked(user, cardView)
                         } else {
-                            listener.onUserClicked(user, binding.image)
+                            listener.onUserClicked(user, image)
                             isFriend = true
                         }
                     }

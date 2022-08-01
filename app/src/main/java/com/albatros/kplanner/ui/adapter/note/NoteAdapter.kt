@@ -1,15 +1,12 @@
 package com.albatros.kplanner.ui.adapter.note
 
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.cardview.widget.CardView
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.NoteLayoutBinding
-import com.albatros.kplanner.domain.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.playFadeInAnimation
 import com.albatros.kplanner.model.data.DiraNote
 
 class NoteAdapter(
@@ -41,10 +38,9 @@ class NoteAdapter(
                 return
             note?.let {
                 with(binding) {
-                    ViewCompat.setTransitionName(cardView, note.id.toString())
                     title.text = note.title
                     description.text = note.description
-                    info.text = note.score.toString() + " очков"
+                    info.text = root.context.getString(R.string.points_template_str, note.score)
 
                     cardView.playFadeInAnimation(500L)
 

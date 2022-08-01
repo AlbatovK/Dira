@@ -1,22 +1,23 @@
 package com.albatros.kplanner.ui.fragments.list
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.albatros.kplanner.model.api.DiraApi
+import com.albatros.kplanner.domain.usecase.note.AddNotesToScheduleUseCase
+import com.albatros.kplanner.domain.usecase.note.LoadAllNotesUseCase
+import com.albatros.kplanner.domain.usecase.note.NotesUseCases
 import com.albatros.kplanner.model.data.DiraNote
-import com.albatros.kplanner.model.data.NotesIdsList
-import com.albatros.kplanner.model.repo.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListViewModel(private val api: DiraApi, private val repo: UserRepo) : ViewModel() {
+class ListViewModel(
+    private val notesUseCases: NotesUseCases
+) : ViewModel() {
 
     private val _notes: MutableLiveData<List<DiraNote>> = MutableLiveData<List<DiraNote>>().apply {
         viewModelScope.launch(Dispatchers.Main) {
-            value = api.getAllNotes()
+            value = notesUseCases.loadAllNotes()
         }
     }
 
@@ -29,12 +30,11 @@ class ListViewModel(private val api: DiraApi, private val repo: UserRepo) : View
     fun addNotes(notes: List<DiraNote>) {
         viewModelScope.launch(Dispatchers.Main) {
             _noteAdded.value = try {
-                api.addNotes(NotesIdsList(notes.map(DiraNote::id)), repo.diraUser.tokenId)
+                notesUseCases.addNotesToSchedule(notes)
                 true
             } catch (e: Exception) {
                 false
             }
         }
     }
-
 }

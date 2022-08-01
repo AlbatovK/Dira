@@ -1,23 +1,16 @@
 package com.albatros.kplanner.ui.fragments.profile
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.*
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.ProfileFragmentBinding
-import com.albatros.kplanner.domain.getMonth
-import com.albatros.kplanner.domain.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.getMonth
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
 import com.albatros.kplanner.ui.activity.MainActivity
@@ -56,9 +49,8 @@ class ProfileFragment : Fragment() {
     }
 
     private val listener = object: ScheduleAdapterListener {
-
-        override fun OnFirstNoteBinded(view: CardView) {}
-
+        override fun onItemMoved(fromPosition: Int, toPosition: Int,adapter: ScheduleAdapter): Boolean = false
+        override fun onItemDismiss(position: Int, adapter: ScheduleAdapter) {}
         override fun onNoteFinished(note: DiraNote, schedule: Schedule, view: ImageView) {}
     }
 

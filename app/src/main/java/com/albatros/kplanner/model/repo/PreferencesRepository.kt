@@ -2,7 +2,7 @@ package com.albatros.kplanner.model.repo
 
 import android.content.SharedPreferences
 
-class PreferencesRepo(private val settings: SharedPreferences) {
+class PreferencesRepository(private val settings: SharedPreferences) {
 
     private val editor = settings.edit()
     var opened = getOpenedMode() == MODE_OPENED
@@ -27,7 +27,6 @@ class PreferencesRepo(private val settings: SharedPreferences) {
     fun setPassword(password: String) {
         with(editor) {
             putString(KEY_PASSWORD, password)
-            commit()
             apply()
         }
     }
@@ -42,7 +41,6 @@ class PreferencesRepo(private val settings: SharedPreferences) {
         opened = true
         with(editor) {
             putString(KEY_OPENED, MODE_OPENED)
-            commit()
             apply()
         }
     }

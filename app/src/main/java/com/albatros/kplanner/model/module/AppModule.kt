@@ -1,7 +1,7 @@
 package com.albatros.kplanner.model.module
 
 import android.content.Context
-import com.albatros.kplanner.model.api.DiraApi
+import com.albatros.kplanner.model.network.DiraApi
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -38,10 +38,10 @@ private fun provideFirebaseAnalytics(context: Context) =
     FirebaseAnalytics.getInstance(context)
 
 val appModule = module {
-    single { provideSharedPreferences(get()) }
-    single { provideFirebaseAnalytics(get()) }
-    single { provideApiService(get()) }
-    single { provideRetrofit(get()) }
-    single { provideGsonFactory(get()) }
-    single { provideGson() }
+    single(createdAtStart = true) { provideSharedPreferences(get()) }
+    single(createdAtStart = true) { provideFirebaseAnalytics(get()) }
+    single(createdAtStart = true) { provideApiService(get()) }
+    single(createdAtStart = true) { provideRetrofit(get()) }
+    single(createdAtStart = true) { provideGsonFactory(get()) }
+    single(createdAtStart = true) { provideGson() }
 }

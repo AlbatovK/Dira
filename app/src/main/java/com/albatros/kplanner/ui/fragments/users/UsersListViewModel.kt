@@ -4,39 +4,45 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.albatros.kplanner.model.api.DiraApi
+import com.albatros.kplanner.domain.usecase.datatransfer.get.GetCurrentUserUseCase
+import com.albatros.kplanner.domain.usecase.social.AddFriendsUseCase
+import com.albatros.kplanner.domain.usecase.social.LoadAllUsersUseCase
+import com.albatros.kplanner.domain.usecase.social.LoadFriendsUseCase
+import com.albatros.kplanner.domain.usecase.social.LoadUsersByNamePrefixUseCase
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.model.repo.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UsersListViewModel(private val api: DiraApi, private val repo: UserRepo) : ViewModel() {
+class UsersListViewModel(
+    private val addFriendUseCase: AddFriendsUseCase,
+    private val loadAllUsers: LoadAllUsersUseCase,
+    private val loadFriendsUseCase: LoadFriendsUseCase,
+    private val loadUsersByNamePrefix: LoadUsersByNamePrefixUseCase,
+    private val getCurrentUser: GetCurrentUserUseCase
+) : ViewModel() {
 
-    private var allUsers = mutableListOf<DiraUser>()
+    private var allUsers = listOf<DiraUser>()
 
-    private val _users: MutableLiveData<List<DiraUser>> = MutableLiveData<List<DiraUser>>(listOf()).apply {
-        viewModelScope.launch(Dispatchers.Main) {
-            val list = api.getUsers(0, 10).toMutableList()
-            list.remove(repo.diraUser)
-            allUsers = list.sortedByDescending(DiraUser::score).toMutableList()
-            value = list.sortedByDescending(DiraUser::score)
+    private val _users: MutableLiveData<List<DiraUser>> =
+        MutableLiveData<List<DiraUser>>().apply {
+            viewModelScope.launch(Dispatchers.Main) {
+                allUsers = loadAllUsers()
+                value = allUsers.toMutableList()
+            }
         }
-    }
 
     fun fetchByTopics(query: String) {
         viewModelScope.launch {
-            _users.value = try {
-                _users.value?.filter {
-                    it.nickname.lowercase().contains(query, ignoreCase = true)
-                }
-            } catch (e: Exception) {
-                null
-            }
+            val found = loadUsersByNamePrefix(query)
+            _users.value = found
         }
     }
 
     fun loadFriends() {
-        _users.value = _users.value?.filter { repo.diraUser.friendsIds.contains(it.tokenId) }
+        viewModelScope.launch(Dispatchers.Main) {
+            val friends = loadFriendsUseCase()
+            _users.value = friends
+        }
     }
 
     fun loadUsersList() {
@@ -47,12 +53,11 @@ class UsersListViewModel(private val api: DiraApi, private val repo: UserRepo) :
 
     val users: LiveData<List<DiraUser>> = _users
 
-    fun getUser() = repo.diraUser
+    fun getUser() = getCurrentUser()
 
     fun addFriend(user: DiraUser) {
         viewModelScope.launch(Dispatchers.Main) {
-            repo.diraUser.friendsIds.add(user.tokenId)
-            api.createUser(repo.diraUser)
+            addFriendUseCase(user)
         }
     }
 }

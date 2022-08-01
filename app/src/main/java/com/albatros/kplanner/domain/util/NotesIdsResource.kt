@@ -1,4 +1,4 @@
-package com.albatros.kplanner.model.data
+package com.albatros.kplanner.domain.util
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class NotesIdsList(
+data class NotesIdsResource(
 
     @SerializedName("notes")
     @Expose
