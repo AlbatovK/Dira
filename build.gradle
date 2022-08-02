@@ -29,6 +29,8 @@ buildscript {
     }
 }
 
+tasks.getByPath("detekt").onlyIf { gradle.startParameter.taskNames.contains("detekt") }
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
