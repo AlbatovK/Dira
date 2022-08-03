@@ -9,19 +9,37 @@ import com.albatros.kplanner.domain.usecase.note.LoadAllNotesUseCase
 import com.albatros.kplanner.domain.usecase.note.NotesUseCases
 import com.albatros.kplanner.model.data.DiraNote
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ListViewModel(
     private val notesUseCases: NotesUseCases
 ) : ViewModel() {
 
-    private val _notes: MutableLiveData<List<DiraNote>> = MutableLiveData<List<DiraNote>>().apply {
-        viewModelScope.launch(Dispatchers.Main) {
-            value = notesUseCases.loadAllNotes()
-        }
-    }
+    private val _notes: MutableLiveData<List<DiraNote>> = MutableLiveData<List<DiraNote>>()
 
     val notes: LiveData<List<DiraNote>> = _notes
+
+    private val pageSize = 10
+    private var key = 0
+    private var isLoading = false
+
+    init {
+        loadNextPage()
+        isLoading = true
+    }
+
+    fun loadNextPage() {
+        if (isLoading) {
+            return
+        }
+        viewModelScope.launch {
+            isLoading = true
+            _notes.value = notesUseCases.loadNotes(key * pageSize, ++key * pageSize)
+            if (!_notes.value.isNullOrEmpty())
+                isLoading = false
+        }
+    }
 
     private val _noteAdded: MutableLiveData<Boolean> = MutableLiveData(false)
 

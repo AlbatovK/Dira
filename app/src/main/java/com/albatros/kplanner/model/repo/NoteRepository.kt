@@ -9,5 +9,7 @@ class NoteRepository(private val api: DiraApi, private val userRepository: UserR
         api.addNotes(idsList, userRepository.getCurrentUser().tokenId)
     }
 
+    suspend fun getNotes(from: Int, to: Int) = api.getNotes(from, to)
+
     suspend fun getAllNotes() = api.getAllNotes()
 }

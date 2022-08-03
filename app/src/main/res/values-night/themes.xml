@@ -11,8 +11,8 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/dark_cyan</item>
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/light_cyan</item>
-        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarDividerColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 

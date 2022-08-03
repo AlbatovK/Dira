@@ -60,6 +60,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
 
+    implementation 'com.github.omadahealth:swipy:1.2.3'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.0'
     implementation("com.ericktijerou.koleton:koleton:1.0.0-beta01")
     implementation("com.facebook.shimmer:shimmer:0.5.0")

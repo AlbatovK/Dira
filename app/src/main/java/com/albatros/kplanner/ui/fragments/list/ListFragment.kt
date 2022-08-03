@@ -2,6 +2,7 @@ package com.albatros.kplanner.ui.fragments.list
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -12,6 +13,8 @@ import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.note.NoteAdapter
 import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -113,27 +116,29 @@ class ListFragment : Fragment() {
             }
         }
 
-        binding.notes.loadSkeleton(R.layout.note_layout) {
-            itemCount(3)
-            color(R.color.gray_light)
-            shimmer(true)
-            lineSpacing(20f)
+        var f = binding.swipeRefreshLayout.javaClass.getDeclaredField("mCircleHeight")
+        f.isAccessible = true
+        f.setInt(binding.swipeRefreshLayout, 0)
+        f = binding.swipeRefreshLayout.javaClass.getDeclaredField("mCircleWidth")
+        f.isAccessible = true
+        f.setInt(binding.swipeRefreshLayout, 0)
+
+        val loaded = mutableListOf<DiraNote>()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = false
+            viewModel.loadNextPage()
         }
 
-        binding.notes.adapter =
-            NoteAdapter(MutableList(3) { DiraNote() }, object : NoteAdapterListener {
-                override fun onNoteSelected(note: DiraNote, view: CardView) {}
-                override fun onNoteClicked(note: DiraNote, view: CardView) {}
-            }, true)
+        binding.notes.adapter = NoteAdapter(loaded, listener, false)
 
         binding.notes.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         viewModel.notes.observe(viewLifecycleOwner) {
-            binding.notes.hideSkeleton()
-            binding.notes.adapter = NoteAdapter(it.toMutableList(), listener, false)
-            binding.notes.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            loaded.addAll(it)
+            (binding.notes.adapter as NoteAdapter)
+                .notifyItemRangeInserted((binding.notes.adapter as NoteAdapter).itemCount, it.size)
         }
     }
 }

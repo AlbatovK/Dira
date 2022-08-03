@@ -6,5 +6,6 @@ data class NotesUseCases(
     val changeNotePosition: ChangeNotePositionUseCase,
     val finishNote: FinishNoteUseCase,
     val loadAllNotes: LoadAllNotesUseCase,
+    val loadNotes: LoadNotesUseCase,
     val removeNoteAtFromSchedule: RemoveNoteAtFromScheduleUseCase
 )

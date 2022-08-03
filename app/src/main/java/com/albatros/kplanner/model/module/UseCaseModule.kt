@@ -42,7 +42,8 @@ val useCaseModule = module {
     single { FinishNoteUseCase(get()) }
     single { ImportScheduleUseCase(get(), get(), get()) }
     single { LoadAllByUsersLeagueUseCase(get(), get()) }
-    single { NotesUseCases(get(), get(), get(), get(), get(), get()) }
+    single { NotesUseCases(get(), get(), get(), get(), get(), get(), get()) }
+    single { LoadNotesUseCase(get()) }
     single { AddFriendsUseCase(get()) }
     single { LoadAllUsersUseCase(get(), get()) }
     single { LoadFriendsUseCase(get(), get()) }
