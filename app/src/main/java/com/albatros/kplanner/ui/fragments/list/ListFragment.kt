@@ -9,6 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.ListFragmentBinding
+import com.albatros.kplanner.domain.extensions.playFadeInAnimation
+import com.albatros.kplanner.domain.extensions.playFadeOutAnimation
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.note.NoteAdapter
@@ -127,6 +129,7 @@ class ListFragment : Fragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing = false
+            binding.progressBar.playFadeInAnimation(500L)
             viewModel.loadNextPage()
         }
 
@@ -136,6 +139,7 @@ class ListFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         viewModel.notes.observe(viewLifecycleOwner) {
+            binding.progressBar.playFadeOutAnimation(500L)
             loaded.addAll(it)
             (binding.notes.adapter as NoteAdapter)
                 .notifyItemRangeInserted((binding.notes.adapter as NoteAdapter).itemCount, it.size)

@@ -36,8 +36,7 @@ class ListViewModel(
         viewModelScope.launch {
             isLoading = true
             _notes.value = notesUseCases.loadNotes(key * pageSize, ++key * pageSize)
-            if (!_notes.value.isNullOrEmpty())
-                isLoading = false
+            isLoading = false
         }
     }
 
