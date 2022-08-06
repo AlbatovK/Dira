@@ -1,9 +1,6 @@
 package com.albatros.kplanner.ui.fragments.profile
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.albatros.kplanner.domain.usecase.datatransfer.fetch.ImportScheduleUseCase
 import com.albatros.kplanner.domain.usecase.datatransfer.fetch.InternalDataFetchUseCases
 import com.albatros.kplanner.model.data.DiraUser
@@ -17,13 +14,9 @@ class ProfileViewModel(
     private val chosen: DiraUser
 ) : ViewModel() {
 
-    private val _userSchedule: MutableLiveData<Schedule> = MutableLiveData<Schedule>().apply {
-        viewModelScope.launch(Dispatchers.Main) {
-            value = internalDataFetchUseCases.loadUsersSchedule(chosen.tokenId)
-        }
+    val userSchedule: LiveData<Schedule> = liveData {
+        emit(internalDataFetchUseCases.loadUsersSchedule(chosen.tokenId))
     }
-
-    val userSchedule: LiveData<Schedule> = _userSchedule
 
     private val _onImported: MutableLiveData<Boolean> = MutableLiveData(false)
 

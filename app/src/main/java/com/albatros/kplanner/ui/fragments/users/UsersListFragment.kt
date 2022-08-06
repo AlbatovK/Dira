@@ -88,12 +88,12 @@ class UsersListFragment : Fragment() {
         val queryListener = object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.trim()?.lowercase()?.let { viewModel.fetchByTopics(query) }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+                newText?.trim()?.lowercase()?.let { viewModel.fetchByTopics(newText) }
+                return true
             }
         }
 

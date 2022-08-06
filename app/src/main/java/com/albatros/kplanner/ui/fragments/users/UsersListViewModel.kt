@@ -11,6 +11,8 @@ import com.albatros.kplanner.domain.usecase.social.LoadFriendsUseCase
 import com.albatros.kplanner.domain.usecase.social.LoadUsersByNamePrefixUseCase
 import com.albatros.kplanner.model.data.DiraUser
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class UsersListViewModel(
@@ -31,8 +33,12 @@ class UsersListViewModel(
             }
         }
 
+    private var searchJob: Job? = null
+
     fun fetchByTopics(query: String) {
-        viewModelScope.launch {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500L)
             val found = loadUsersByNamePrefix(query)
             _users.value = found
         }
