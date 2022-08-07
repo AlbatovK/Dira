@@ -12,6 +12,8 @@ import com.albatros.kplanner.domain.util.AuthResult
 import com.albatros.kplanner.model.data.DiraUser
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
@@ -21,32 +23,40 @@ class RegisterViewModel(
     private val serverInputUseCases: ServerInputUseCases
 ) : ViewModel() {
 
-    private val _authResult: MutableLiveData<AuthResult> = MutableLiveData()
-    val authResult: LiveData<AuthResult> = _authResult
+    private val _eventChannel = Channel<UiEvent>()
+    val eventChannel = _eventChannel.receiveAsFlow()
 
-    private val _diraUser: MutableLiveData<DiraUser?> = MutableLiveData()
-    val diraUser: LiveData<DiraUser?> = _diraUser
-
-    fun createInternalUser(user: FirebaseUser) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _diraUser.value = try {
-                val diraUser = serverInputUseCases.createUser(user)
-                serverInputUseCases.createUsersSchedule()
-                val welcomeNote = listOf(1L)
-                addNotesToScheduleById(welcomeNote)
-                diraUser
-            } catch (e: Exception) {
-                null
-            }
-        }
+    sealed class UiEvent {
+        data class OnAuthStateChanged(val authResult: AuthResult) : UiEvent()
+        data class OnUserFetchCompleted(val user: DiraUser?) : UiEvent()
     }
 
-    fun authenticate(email: String, password: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+    fun startAuth(email: String, password: String) {
+        viewModelScope.launch {
             val authRes = authUseCases.signUpFirebase(email, password)
-            _authResult.value = authRes
-            if (authRes is AuthResult.AuthSuccess)
+
+            _eventChannel.send(
+                UiEvent.OnAuthStateChanged(authRes)
+            )
+
+            if (authRes is AuthResult.AuthSuccess) {
                 autoEnterUseCases.setAutoEnterData(email, password)
+
+                var user: DiraUser?
+
+                try {
+                    user = serverInputUseCases.createUser(authRes.user)
+                    serverInputUseCases.createUsersSchedule()
+                    val welcomeNote = listOf(1L)
+                    addNotesToScheduleById(welcomeNote)
+                } catch (e: Exception) {
+                    user = null
+                }
+
+                _eventChannel.send(
+                    UiEvent.OnUserFetchCompleted(user)
+                )
+            }
         }
     }
 }

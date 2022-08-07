@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.albatros.kplanner.databinding.EnterFragmentBinding
 import com.albatros.kplanner.domain.extensions.playFadeInAnimation
 import com.albatros.kplanner.domain.extensions.playFadeOutAnimation
 import com.albatros.kplanner.domain.util.AuthResult
-import com.albatros.kplanner.model.data.DiraUser
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,46 +23,11 @@ class EnterFragment : Fragment() {
     private lateinit var binding: EnterFragmentBinding
     private val viewModel: EnterViewModel by viewModel()
 
-    private val onAuthCompletedObserver = Observer<AuthResult> {
-        with(binding) {
-            when (it) {
-                is AuthResult.AuthProgress -> {}
-                is AuthResult.AuthInvalid -> passwordInput.helperText = "Input data is invalid. Try again."
-                is AuthResult.AuthFailure -> binding.passwordInput.helperText = it.exception.message
-                is AuthResult.AuthSuccess -> {
-                    binding.passwordInput.playFadeOutAnimation(700L)
-                    binding.addressInput.playFadeOutAnimation(700L)
-                    viewModel.loadInternalUser(it.user)
-                }
-            }
-        }
-    }
-
-    private val onInternalUserFetched = Observer<DiraUser?> {
-        with(binding) {
-            if (it == null) {
-                passwordInput.helperText = "Internal server error. Try again."
-                passwordInput.playFadeInAnimation(500L)
-                addressInput.playFadeInAnimation(500L)
-                return@Observer
-            }
-
-            lifecycleScope.launch {
-                register.playFadeOutAnimation(700L)
-                enterText.playFadeOutAnimation(700L)
-                enterText.isClickable = false
-                delay(700L)
-                val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
-                findNavController().navigate(direction)
-            }
-        }
-    }
-
     private fun processUserData() {
         with(binding) {
-            binding.addressInput.helperText = ""
-            binding.passwordInput.helperText = ""
-            viewModel.authenticate(
+            addressInput.helperText = ""
+            passwordInput.helperText = ""
+            viewModel.startAuth(
                 addressEdit.text.toString(),
                 passwordEdit.text.toString()
             )
@@ -71,7 +36,6 @@ class EnterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(false)
 
         postponeEnterTransition()
         sharedElementEnterTransition = TransitionInflater.from(context)
@@ -83,8 +47,49 @@ class EnterFragment : Fragment() {
             binding.passwordEdit.setText(it.second)
         }
 
-        viewModel.authResult.observe(viewLifecycleOwner, onAuthCompletedObserver)
-        viewModel.diraUser.observe(viewLifecycleOwner, onInternalUserFetched)
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.eventChannel.collect {
+                    when (it) {
+                        is EnterViewModel.UiEvent.OnUserFetchCompleted -> {
+                            with(binding) {
+                                if (it.user == null) {
+                                    passwordInput.helperText = "Internal server error. Try again."
+                                    passwordInput.playFadeInAnimation(500L)
+                                    addressInput.playFadeInAnimation(500L)
+                                    return@collect
+                                }
+
+                                lifecycleScope.launch {
+                                    register.playFadeOutAnimation(700L)
+                                    enterText.playFadeOutAnimation(700L)
+                                    enterText.isClickable = false
+                                    delay(700L)
+                                    val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        is EnterViewModel.UiEvent.OnAuthStateChanged -> {
+                            with(binding) {
+                                when (it.authResult) {
+                                    is AuthResult.AuthProgress ->
+                                        Unit
+                                    is AuthResult.AuthInvalid ->
+                                        passwordInput.helperText = "Input data is invalid. Try again."
+                                    is AuthResult.AuthFailure ->
+                                        binding.passwordInput.helperText = it.authResult.exception.message
+                                    is AuthResult.AuthSuccess -> {
+                                        binding.passwordInput.playFadeOutAnimation(700L)
+                                        binding.addressInput.playFadeOutAnimation(700L)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         with(binding) {
             enterText.setOnClickListener { processUserData() }
@@ -100,6 +105,7 @@ class EnterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(false)
         binding = EnterFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }

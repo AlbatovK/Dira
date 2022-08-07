@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.albatros.kplanner.databinding.RegisterFragmentBinding
 import com.albatros.kplanner.domain.extensions.playFadeInAnimation
@@ -29,41 +31,11 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
     private lateinit var binding: RegisterFragmentBinding
     private val viewModel: RegisterViewModel by viewModel()
 
-    private val onUserCreated = Observer<AuthResult> {
-        when (it) {
-            is AuthResult.AuthProgress -> {}
-            is AuthResult.AuthInvalid -> { binding.passwordInput.helperText = "Input data is invalid. Try again." }
-            is AuthResult.AuthFailure -> { binding.passwordInput.helperText = it.exception.message }
-            is AuthResult.AuthSuccess -> {
-                binding.passwordInput.playFadeOutAnimation(700L)
-                binding.addressInput.playFadeOutAnimation(700L)
-                viewModel.createInternalUser(it.user)
-            }
-        }
-    }
-
-    private val onDiraUserCreated = Observer<DiraUser?> {
-        if (it == null) {
-            binding.passwordInput.helperText = "Internal server error. Try again."
-            binding.passwordInput.playFadeInAnimation(500L)
-            binding.addressInput.playFadeInAnimation(500L)
-            return@Observer
-        }
-
-        lifecycleScope.launch {
-            binding.registerText.isClickable = false
-            binding.registerText.playFadeOutAnimation(700L)
-            delay(700)
-            val direction = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
-            findNavController().navigate(direction)
-        }
-    }
-
     private fun processUserData() {
         with(binding) {
             addressInput.helperText = ""
             passwordInput.helperText = ""
-            viewModel.authenticate(
+            viewModel.startAuth(
                 addressEdit.text.toString(),
                 passwordEdit.text.toString()
             )
@@ -74,8 +46,45 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(false)
 
-        viewModel.authResult.observe(viewLifecycleOwner, onUserCreated)
-        viewModel.diraUser.observe(viewLifecycleOwner, onDiraUserCreated)
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.eventChannel.collect {
+                    when (it) {
+                        is RegisterViewModel.UiEvent.OnUserFetchCompleted -> {
+                            if (it.user == null) {
+                                binding.passwordInput.helperText = "Internal server error. Try again."
+                                binding.passwordInput.playFadeInAnimation(500L)
+                                binding.addressInput.playFadeInAnimation(500L)
+                                return@collect
+                            }
+
+                            lifecycleScope.launch {
+                                binding.registerText.isClickable = false
+                                binding.registerText.playFadeOutAnimation(700L)
+                                delay(700)
+                                val direction = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
+                                findNavController().navigate(direction)
+                            }
+                        }
+                        is RegisterViewModel.UiEvent.OnAuthStateChanged -> {
+                            when (it.authResult) {
+                                is AuthResult.AuthProgress -> Unit
+                                is AuthResult.AuthInvalid -> {
+                                    binding.passwordInput.helperText = "Input data is invalid. Try again."
+                                }
+                                is AuthResult.AuthFailure -> {
+                                    binding.passwordInput.helperText = it.authResult.exception.message
+                                }
+                                is AuthResult.AuthSuccess -> {
+                                    binding.passwordInput.playFadeOutAnimation(700L)
+                                    binding.addressInput.playFadeOutAnimation(700L)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         binding.registerText.setOnClickListener {
             processUserData()

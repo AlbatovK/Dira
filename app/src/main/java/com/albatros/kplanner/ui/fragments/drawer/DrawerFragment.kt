@@ -41,11 +41,8 @@ class DrawerFragment : Fragment() {
         return true
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DrawerFragmentBinding.inflate(inflater, container, false)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         val navHostFragment: View = binding.root.findViewById(R.id.drawer_nav_host_fragment)
         controller = Navigation.findNavController(navHostFragment)
         drawerLayout = (activity as MainActivity).binding.drawerLayout
@@ -87,7 +84,13 @@ class DrawerFragment : Fragment() {
                 }
             }
         }
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DrawerFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 }
