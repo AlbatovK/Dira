@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 class LoadAllUsersUseCase(private val api: DiraApi, private val userRepository: UserRepository) {
     suspend operator fun invoke() = withContext(Dispatchers.IO) {
-        api.getUsers(0, 20).sortedByDescending(DiraUser::score)
+        api.getUsers(0, 60).sortedByDescending(DiraUser::score)
             .toMutableList().also { it.remove(userRepository.getCurrentUser()) }
     }
 }

@@ -2,6 +2,8 @@ package com.albatros.kplanner.ui.adapter.user.info
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.UserInfoBinding
@@ -9,13 +11,22 @@ import com.albatros.kplanner.domain.extensions.playFadeInAnimation
 import com.albatros.kplanner.model.data.DiraUser
 
 class UserInfoAdapter(
-    private val users: MutableList<DiraUser>,
     private val owner: DiraUser,
     private val listener: UserAdapterListener,
     private val isSkeleton: Boolean,
-) : RecyclerView.Adapter<UserInfoAdapter.UserViewHolder>() {
+) : ListAdapter<DiraUser, UserInfoAdapter.UserViewHolder>(diffCallback) {
 
-    override fun getItemCount(): Int = users.size
+    companion object {
+
+        val diffCallback = object : DiffUtil.ItemCallback<DiraUser>() {
+
+            override fun areItemsTheSame(oldItem: DiraUser, newItem: DiraUser): Boolean = oldItem == newItem
+
+            override fun areContentsTheSame(oldItem: DiraUser, newItem: DiraUser): Boolean = oldItem.tokenId == newItem.tokenId
+        }
+    }
+
+    override fun getItemCount(): Int = currentList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = UserInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,7 +34,7 @@ class UserInfoAdapter(
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.user = users[position]
+        holder.user = currentList[position]
     }
 
     inner class UserViewHolder(private val binding: UserInfoBinding) :
@@ -49,7 +60,7 @@ class UserInfoAdapter(
 
                     name.text = root.context.getString(
                         R.string.place_str,
-                        users.indexOf(user) + 1,
+                        currentList.indexOf(user) + 1,
                         user.nickname
                     )
 

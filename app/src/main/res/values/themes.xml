@@ -2,7 +2,7 @@
 
     <style name="Theme.KPlanner" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="colorPrimary">@color/dark_cyan</item>
         <item name="colorPrimaryVariant">@color/dark_cyan</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -14,6 +14,16 @@
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:navigationBarDividerColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:actionMenuTextAppearance">@style/MenuTextAppearance</item>
+        <item name="android:colorBackground">@color/light_cyan</item>
+    </style>
+
+    <style name="BottomNav" parent="Theme.KPlanner">
+        <item name="android:backgroundTint">@color/dimgrey</item>
+    </style>
+
+    <style name="MenuTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@android:color/holo_red_dark</item>
     </style>
 
     <style name="ErrorTextAppearance" parent="TextAppearance.AppCompat">
@@ -69,7 +79,9 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="Theme.KPlanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.KPlanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="android:textColor">@color/dark_cyan</item>
+    </style>
 
     <style name="Theme.KPlanner.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

@@ -10,7 +10,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_cyan"
+        android:background="?android:attr/colorBackground"
         tools:context=".ui.activity.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout

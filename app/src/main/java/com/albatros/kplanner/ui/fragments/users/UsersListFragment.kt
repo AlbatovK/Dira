@@ -7,6 +7,7 @@ import android.transition.TransitionInflater
 import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -65,9 +66,15 @@ class UsersListFragment : Fragment() {
         searchView.setIconifiedByDefault(false)
 
         val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        searchEditText.setTextColor(resources.getColor(R.color.dark_cyan, context?.theme))
-        searchEditText.setHintTextColor(resources.getColor(R.color.dark_cyan, context?.theme))
-        searchEditText.setBackgroundResource(R.color.light_cyan)
+        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
+            searchEditText.setTextColor(resources.getColor(R.color.dark_cyan, context?.theme))
+            searchEditText.setHintTextColor(resources.getColor(R.color.dark_cyan, context?.theme))
+            searchEditText.setBackgroundResource(R.color.light_cyan)
+        } else {
+            searchEditText.setTextColor(resources.getColor(R.color.mid_cyan, context?.theme))
+            searchEditText.setHintTextColor(resources.getColor(R.color.mid_cyan, context?.theme))
+            searchEditText.setBackgroundResource(R.color.dark_gray)
+        }
 
         val listener = object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
@@ -114,9 +121,12 @@ class UsersListFragment : Fragment() {
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         startPostponedEnterTransition()
 
+        binding.userList.adapter = UserInfoAdapter(viewModel.getUser(), listener, false)
+        binding.userList.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         viewModel.users.observe(viewLifecycleOwner) {
-            binding.userList.adapter = UserInfoAdapter(it.toMutableList(), viewModel.getUser(), listener, false)
-            binding.userList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            (binding.userList.adapter as UserInfoAdapter).submitList(it)
         }
     }
 }

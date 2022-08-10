@@ -1,8 +1,11 @@
 package com.albatros.kplanner.ui.fragments.drawer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -81,6 +84,12 @@ class DrawerFragment : Fragment() {
                     val header = navView.getHeaderView(0)
                     header.findViewById<TextView>(R.id.nickname_txt).text = it.nickname
                     header.findViewById<TextView>(R.id.email_txt).text = it.email
+                    header.findViewById<ImageView>(R.id.change_mode).setOnClickListener {
+                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        activity?.recreate()
+                    }
                 }
             }
         }
