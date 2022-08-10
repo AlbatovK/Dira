@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.albatros.kplanner.domain.usecase.auth.AuthUseCases
 import com.albatros.kplanner.domain.usecase.autoenter.AutoEnterUseCases
 import com.albatros.kplanner.domain.usecase.datatransfer.fetch.InternalDataFetchUseCases
+import com.albatros.kplanner.domain.usecase.uimode.GetUiModeUseCase
 import com.albatros.kplanner.domain.util.AuthResult
 import com.albatros.kplanner.model.data.DiraUser
 import kotlinx.coroutines.channels.Channel
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 class EnterViewModel(
     private val autoEnterUseCases: AutoEnterUseCases,
     private val authUseCases: AuthUseCases,
-    private val internalDataFetchUseCases: InternalDataFetchUseCases
+    private val internalDataFetchUseCases: InternalDataFetchUseCases,
+    private val getUiMode: GetUiModeUseCase
 ) : ViewModel() {
 
     private val _eventChannel = Channel<UiEvent>()

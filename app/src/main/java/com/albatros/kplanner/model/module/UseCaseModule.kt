@@ -15,6 +15,8 @@ import com.albatros.kplanner.domain.usecase.social.AddFriendsUseCase
 import com.albatros.kplanner.domain.usecase.social.LoadAllUsersUseCase
 import com.albatros.kplanner.domain.usecase.social.LoadFriendsUseCase
 import com.albatros.kplanner.domain.usecase.social.LoadUsersByNamePrefixUseCase
+import com.albatros.kplanner.domain.usecase.uimode.GetUiModeUseCase
+import com.albatros.kplanner.domain.usecase.uimode.SetUiModeUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -31,6 +33,8 @@ val useCaseModule = module {
     single { RemoveNoteAtFromScheduleUseCase(get()) }
     single { ChangeNotePositionUseCase(get()) }
     single { AddNotesToScheduleByIdUseCase(get()) }
+    single { GetUiModeUseCase(get()) }
+    single { SetUiModeUseCase(get()) }
     single { AddNotesToScheduleUseCase(get()) }
     single { CreateUsersScheduleUseCase(get()) }
     single { CreateUserUseCase(get()) }

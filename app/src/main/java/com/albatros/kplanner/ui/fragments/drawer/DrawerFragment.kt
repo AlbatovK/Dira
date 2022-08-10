@@ -1,11 +1,13 @@
 package com.albatros.kplanner.ui.fragments.drawer
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.DrawerFragmentBinding
+import com.albatros.kplanner.model.repo.PreferencesRepository
 import com.albatros.kplanner.ui.activity.MainActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.delay
@@ -44,6 +47,8 @@ class DrawerFragment : Fragment() {
         return true
     }
 
+    /* Nah I need it for handling navigation setup after configuration change */
+    @Suppress("deprecation")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val navHostFragment: View = binding.root.findViewById(R.id.drawer_nav_host_fragment)
@@ -52,7 +57,8 @@ class DrawerFragment : Fragment() {
         navView = (activity as MainActivity).binding.drawerNavView
         val mainActivity = activity as MainActivity
 
-        val appBarConfig = AppBarConfiguration.Builder(R.id.main_fragment, R.id.NavigationFragment,
+        val appBarConfig = AppBarConfiguration.Builder(
+            R.id.main_fragment, R.id.NavigationFragment,
             R.id.list_fragment, R.id.users_fragment, R.id.stats_fragment
         ).setOpenableLayout(drawerLayout).build()
 
@@ -80,15 +86,27 @@ class DrawerFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.userFlow.collectLatest {
+
+                viewModel.uiFlow.collectLatest { (uiMode, user) ->
                     val header = navView.getHeaderView(0)
-                    header.findViewById<TextView>(R.id.nickname_txt).text = it.nickname
-                    header.findViewById<TextView>(R.id.email_txt).text = it.email
+
+                    val drawableId = if (uiMode == PreferencesRepository.UiMode.LIGHT) {
+                        R.drawable.ic_sun
+                    } else {
+                        R.drawable.ic_night_mode
+                    }
+
+                    header.findViewById<ImageView>(R.id.change_mode).setImageResource(drawableId)
+
+                    header.findViewById<TextView>(R.id.nickname_txt).text = user.nickname
+                    header.findViewById<TextView>(R.id.email_txt).text = user.email
                     header.findViewById<ImageView>(R.id.change_mode).setOnClickListener {
-                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                        activity?.recreate()
+                        Toast.makeText(
+                            requireContext(),
+                            "Изменения вступят в силу только после перезапуска приложения",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        viewModel.changeUiMode()
                     }
                 }
             }

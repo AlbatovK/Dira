@@ -1,5 +1,6 @@
 package com.albatros.kplanner.model.module
 
+import com.albatros.kplanner.ui.activity.MainActivityViewModel
 import com.albatros.kplanner.ui.fragments.drawer.DrawerViewModel
 import com.albatros.kplanner.ui.fragments.enter.EnterViewModel
 import com.albatros.kplanner.ui.fragments.list.ListViewModel
@@ -14,14 +15,15 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { EnterViewModel(get(), get(), get()) }
+    viewModel { EnterViewModel(get(), get(), get(), get()) }
     viewModel { RegisterViewModel(get(), get(), get(), get()) }
     viewModel { WelcomeViewModel(get()) }
     viewModel { ListViewModel(get()) }
     viewModel { MainViewModel(get(), get(), get(), get()) }
     viewModel { StatsViewModel(get(), get()) }
     viewModel { NavigationViewModel() }
+    viewModel { MainActivityViewModel(get()) }
     viewModel { UsersListViewModel(get(), get(), get(), get(), get()) }
     viewModel { parameters -> ProfileViewModel(get(), get(), parameters.get()) }
-    viewModel { DrawerViewModel(get()) }
+    viewModel { DrawerViewModel(get(), get(), get()) }
 }
