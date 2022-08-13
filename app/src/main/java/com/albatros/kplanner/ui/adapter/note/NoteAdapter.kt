@@ -22,9 +22,12 @@ class NoteAdapter(
         return NoteViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) { holder.note = notes[position] }
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        holder.note = notes[position]
+    }
 
-    inner class NoteViewHolder(private val binding: NoteLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NoteViewHolder(private val binding: NoteLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         var note: DiraNote? = null
             get() = field!!

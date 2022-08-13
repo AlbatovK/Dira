@@ -19,9 +19,12 @@ class UserAdapter(
         return UserViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) { holder.user = users[position] }
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.user = users[position]
+    }
 
-    inner class UserViewHolder(private val binding: UserLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class UserViewHolder(private val binding: UserLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         var user: DiraUser? = null
             get() = field!!

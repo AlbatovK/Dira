@@ -22,22 +22,34 @@ class MainViewModel(
 
     private val _schedule: MutableLiveData<Schedule> = MutableLiveData<Schedule>().apply {
         viewModelScope.launch(Dispatchers.Main) {
-            value = internalDataFetchUseCases.loadUsersSchedule(getCurrentUser().tokenId)
+            try {
+                value = internalDataFetchUseCases.loadUsersSchedule(getCurrentUser().tokenId)
+            } catch (e: Exception) {
+            }
         }
     }
 
     val schedule: LiveData<Schedule> = _schedule
 
     fun removeNoteFromSchedule(pos: Int) {
-        notesUseCases.removeNoteAtFromSchedule(pos)
+        try {
+            notesUseCases.removeNoteAtFromSchedule(pos)
+        } catch (e: Exception) {
+        }
     }
 
     fun moveNote(from: Int, to: Int) {
-        notesUseCases.changeNotePosition(from, to)
+        try {
+            notesUseCases.changeNotePosition(from, to)
+        } catch (e: Exception) {
+        }
     }
 
     fun finishNote(note: DiraNote) {
-        notesUseCases.finishNote(note)
+        try {
+            notesUseCases.finishNote(note)
+        } catch (e: Exception) {
+        }
         saveState()
     }
 
@@ -47,8 +59,11 @@ class MainViewModel(
 
     fun saveState() {
         viewModelScope.launch(Dispatchers.Main) {
-            serverInputUseCases.saveSchedule()
-            serverInputUseCases.saveUser()
+            try {
+                serverInputUseCases.saveSchedule()
+                serverInputUseCases.saveUser()
+            } catch (e: Exception) {
+            }
         }
     }
 }

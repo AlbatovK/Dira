@@ -12,10 +12,16 @@
     <color name="light_cyan">#e0f7fa</color>
     <color name="mid_cyan">#26c6da</color>
     <color name="dark_cyan">#00838f</color>
+    <color name="selected_grey">#505050</color>
     <color name="fin_blue">#4682B4</color>
     <color name="dark_cyan_alpha">#6026c6da</color>
     <color name="dark_gray">#FF202020</color>
     <color name="dimgrey">#555555</color>
+    <color name="purple_standard">#98bb86fc</color>
+    <color name="grey_500">#292929</color>
+    <color name="purple_standard_alpha">#70bb86fc</color>
+    <color name="grey_200">#1f1f1f</color>
+    <color name="purple_accent">#704ec4</color>
     <color name="light_blue">#FFD7E8DE</color>
     <color name="red_orange">#ffffab91</color>
     <color name="red_pink">#fff48fb1</color>

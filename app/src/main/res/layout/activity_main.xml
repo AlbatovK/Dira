@@ -36,7 +36,7 @@
                 app:popupTheme="@style/Theme.KPlanner.PopupOverlay"
                 app:statusBarScrim="@android:color/transparent"
                 app:theme="@style/ToolbarColoredBackArrow"
-                app:titleTextAppearance="@style/AppBarTextAppearance" />
+                app:titleTextAppearance="?attr/AppBarStyle" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -48,10 +48,10 @@
         android:id="@+id/drawer_nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:itemIconTint="@color/dark_cyan"
-        app:itemTextColor="@color/dark_cyan"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_main"
+        app:itemIconTint="?attr/AppBarTextColor"
+        app:itemTextColor="?attr/AppBarTextColor"
         app:menu="@menu/drawer_nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

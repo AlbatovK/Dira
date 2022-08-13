@@ -2,8 +2,7 @@
     android:shape="rectangle">
     <gradient
         android:angle="135"
-        android:centerColor="@color/mid_cyan"
         android:endColor="@color/light_cyan"
-        android:startColor="@color/dark_cyan"
+        android:startColor="?attr/AppBarTextColor"
         android:type="linear" />
 </shape>

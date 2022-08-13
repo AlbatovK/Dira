@@ -3,43 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item android:title="Навигация">
+    <item android:title="Навигация">
         <menu>
-            <item
-                android:id="@+id/main_fragment"
-                android:icon="@drawable/ic_home"
-                android:title="Дом" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/main_fragment"
+                    android:icon="@drawable/ic_home"
+                    android:title="Дом" />
 
-            <item
-                android:id="@+id/NavigationFragment"
-                android:icon="@drawable/ic_dashboard"
-                android:title="Главный экран" />
+                <item
+                    android:id="@+id/NavigationFragment"
+                    android:icon="@drawable/ic_dashboard"
+                    android:title="Главный экран" />
 
-            <item
-                android:id="@+id/users_fragment"
-                android:icon="@drawable/ic_account"
-                android:title="Пользователи" />
+                <item
+                    android:id="@+id/users_fragment"
+                    android:icon="@drawable/ic_account"
+                    android:title="Пользователи" />
 
-            <item
-                android:id="@+id/stats_fragment"
-                android:icon="@drawable/ic_trophy"
-                android:title="Статистика" />
-
+                <item
+                    android:id="@+id/stats_fragment"
+                    android:icon="@drawable/ic_trophy"
+                    android:title="Статистика" />
+            </group>
         </menu>
 
-        </item>
+    </item>
 
-        <item android:title="Другие действия">
-            <menu>
-                <item
-                    android:id="@+id/nav_exit"
-                    android:icon="@drawable/ic_exit"
-                    android:title="Выход" />
-            </menu>
-        </item>
-
-    </group>
+    <item android:title="Другие действия">
+        <menu>
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_exit"
+                android:title="Выход" />
+        </menu>
+    </item>
 
 
 </menu>

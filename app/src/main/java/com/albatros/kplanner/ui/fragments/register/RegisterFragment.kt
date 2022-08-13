@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -14,7 +13,6 @@ import com.albatros.kplanner.databinding.RegisterFragmentBinding
 import com.albatros.kplanner.domain.extensions.playFadeInAnimation
 import com.albatros.kplanner.domain.extensions.playFadeOutAnimation
 import com.albatros.kplanner.domain.util.AuthResult
-import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.ui.activity.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -52,7 +50,8 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
                     when (it) {
                         is RegisterViewModel.UiEvent.OnUserFetchCompleted -> {
                             if (it.user == null) {
-                                binding.passwordInput.helperText = "Internal server error. Try again."
+                                binding.passwordInput.helperText =
+                                    "Internal server error. Try again."
                                 binding.passwordInput.playFadeInAnimation(500L)
                                 binding.addressInput.playFadeInAnimation(500L)
                                 return@collect
@@ -62,7 +61,8 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
                                 binding.registerText.isClickable = false
                                 binding.registerText.playFadeOutAnimation(700L)
                                 delay(700)
-                                val direction = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
+                                val direction =
+                                    RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
                                 findNavController().navigate(direction)
                             }
                         }
@@ -70,10 +70,12 @@ class RegisterFragment : Fragment(), MainActivity.IOnBackPressed {
                             when (it.authResult) {
                                 is AuthResult.AuthProgress -> Unit
                                 is AuthResult.AuthInvalid -> {
-                                    binding.passwordInput.helperText = "Input data is invalid. Try again."
+                                    binding.passwordInput.helperText =
+                                        "Input data is invalid. Try again."
                                 }
                                 is AuthResult.AuthFailure -> {
-                                    binding.passwordInput.helperText = it.authResult.exception.message
+                                    binding.passwordInput.helperText =
+                                        it.authResult.exception.message
                                 }
                                 is AuthResult.AuthSuccess -> {
                                     binding.passwordInput.playFadeOutAnimation(700L)

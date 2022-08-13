@@ -7,8 +7,9 @@ import com.albatros.kplanner.domain.usecase.uimode.GetUiModeUseCase
 import com.albatros.kplanner.domain.usecase.uimode.SetUiModeUseCase
 import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.model.repo.PreferencesRepository.UiMode
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class DrawerViewModel(
@@ -21,7 +22,7 @@ class DrawerViewModel(
     private val uiModeFlow: StateFlow<UiMode> = _uiModeFlow
 
     fun changeUiMode() {
-        val mode = if (getUiModeUseCase() == UiMode.DARK)  UiMode.LIGHT else UiMode.DARK
+        val mode = if (getUiModeUseCase() == UiMode.DARK) UiMode.LIGHT else UiMode.DARK
         setUiModeUseCase(mode)
         viewModelScope.launch {
             _uiModeFlow.emit(mode)
@@ -31,7 +32,7 @@ class DrawerViewModel(
     private val _userFlow = MutableStateFlow(getCurrentUser())
     private val userFlow: StateFlow<DiraUser> = _userFlow
 
-    val uiFlow = combine(uiModeFlow, userFlow) {
-        first, second -> Pair(first, second)
+    val uiFlow = combine(uiModeFlow, userFlow) { first, second ->
+        Pair(first, second)
     }
 }

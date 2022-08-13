@@ -14,7 +14,7 @@
         android:layout_marginEnd="20dp"
         android:hint="Email"
         android:textColorHint="@color/white"
-        app:boxBackgroundColor="?android:attr/colorPrimary"
+        app:boxBackgroundColor="?attr/EditTextColor"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
         app:helperTextTextAppearance="@style/ErrorTextAppearance"
@@ -26,10 +26,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/address_edit"
-            android:textColor="?android:attr/editTextColor"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="?android:attr/editTextColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,7 +44,7 @@
         android:layout_marginEnd="20dp"
         android:hint="Пароль"
         android:textColorHint="@color/white"
-        app:boxBackgroundColor="?android:attr/colorPrimary"
+        app:boxBackgroundColor="?attr/EditTextColor"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
         app:helperTextTextAppearance="@style/ErrorTextAppearance"
@@ -56,10 +56,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_edit"
-            android:textColor="?android:attr/editTextColor"
-            android:inputType="text|textPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text|textPassword"
+            android:textColor="?android:attr/editTextColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +71,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="Войти"
-        android:textColor="@color/dark_cyan"
+        android:textColor="?attr/AppBarTextColor"
         android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
@@ -86,7 +86,7 @@
         android:alpha="0.7"
         android:gravity="center"
         android:text="Нет аккаунта? Нажмите, чтобы пройти регистрацию"
-        android:textColor="@color/dark_cyan"
+        android:textColor="?attr/AppBarTextColor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -100,6 +100,7 @@
         app:layout_constraintBottom_toTopOf="@+id/address_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        app:tint="?attr/logoTintColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

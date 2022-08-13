@@ -3,7 +3,6 @@ package com.albatros.kplanner.ui.fragments.profile
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -41,15 +40,21 @@ class ProfileFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.action_import -> {
             viewModel.importSchedule()
             true
-        } else -> false
+        }
+        else -> false
     }
 
-    private val listener = object: ScheduleAdapterListener {
-        override fun onItemMoved(fromPosition: Int, toPosition: Int,adapter: ScheduleAdapter): Boolean = false
+    private val listener = object : ScheduleAdapterListener {
+        override fun onItemMoved(
+            fromPosition: Int,
+            toPosition: Int,
+            adapter: ScheduleAdapter
+        ): Boolean = false
+
         override fun onItemDismiss(position: Int, adapter: ScheduleAdapter) {}
         override fun onNoteFinished(note: DiraNote, schedule: Schedule, view: ImageView) {}
     }
@@ -64,7 +69,8 @@ class ProfileFragment : Fragment() {
 
         viewModel.onImported.observe(viewLifecycleOwner) {
             if (it) {
-                (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_import).setIcon(R.drawable.ic_check)
+                (activity as MainActivity).binding.toolbar.menu
+                    .findItem(R.id.action_import).setIcon(R.drawable.ic_check)
             }
         }
 

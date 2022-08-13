@@ -7,7 +7,6 @@ import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.UserNoteLayoutBinding
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
-import java.util.*
 
 class ScheduleAdapter(
     private val schedule: Schedule,

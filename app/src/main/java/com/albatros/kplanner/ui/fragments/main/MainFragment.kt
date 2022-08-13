@@ -37,7 +37,11 @@ class MainFragment : Fragment() {
             adapter.notifyItemRemoved(position)
         }
 
-        override fun onItemMoved(fromPosition: Int, toPosition: Int, adapter: ScheduleAdapter): Boolean {
+        override fun onItemMoved(
+            fromPosition: Int,
+            toPosition: Int,
+            adapter: ScheduleAdapter
+        ): Boolean {
             viewModel.moveNote(fromPosition, toPosition)
             adapter.notifyItemMoved(fromPosition, toPosition)
             return true
@@ -48,10 +52,11 @@ class MainFragment : Fragment() {
 
             with(binding) {
                 progressBar.progress += 1
-                statText.text = context?.getString(R.string.stat_str, progressBar.progress, progressBar.max)
+                statText.text =
+                    context?.getString(R.string.stat_str, progressBar.progress, progressBar.max)
                 points.text = context?.getString(R.string.points_str, viewModel.getUsersDayScore())
                 val new = context?.resources?.getColor(R.color.neon_green, context?.theme)
-                val old = context?.resources?.getColor(R.color.dark_cyan, context?.theme)
+                val old = view.imageTintList?.defaultColor
 
                 view.setImageResource(R.drawable.ic_checkbox_checked)
                 ValueAnimator.ofObject(ArgbEvaluator(), old, new).apply {
@@ -121,12 +126,14 @@ class MainFragment : Fragment() {
 
         viewModel.schedule.observe(viewLifecycleOwner) {
             binding.list.adapter = ScheduleAdapter(it, listener)
-            val callback: ItemTouchHelper.Callback = ItemTouchHelperCallback(binding.list.adapter as ScheduleAdapter)
+            val callback: ItemTouchHelper.Callback =
+                ItemTouchHelperCallback(binding.list.adapter as ScheduleAdapter)
             val touchHelper = ItemTouchHelper(callback)
             touchHelper.attachToRecyclerView(binding.list)
             binding.list.layoutManager = LinearLayoutManager(context)
 
-            binding.points.text = context?.getString(R.string.points_str, viewModel.getUsersDayScore())
+            binding.points.text =
+                context?.getString(R.string.points_str, viewModel.getUsersDayScore())
             binding.statText.text = context?.getString(
                 R.string.stat_str,
                 it.tasks.count { s -> s.finished },

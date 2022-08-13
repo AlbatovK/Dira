@@ -2,6 +2,7 @@ package com.albatros.kplanner.ui.fragments.users
 
 import android.app.SearchManager
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.*
@@ -18,6 +19,7 @@ import com.albatros.kplanner.model.data.DiraUser
 import com.albatros.kplanner.ui.adapter.user.info.UserAdapterListener
 import com.albatros.kplanner.ui.adapter.user.info.UserInfoAdapter
 import com.albatros.kplanner.ui.fragments.drawer.DrawerFragmentDirections
+import com.google.android.material.color.MaterialColors
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -38,7 +40,8 @@ class UsersListFragment : Fragment() {
 
         override fun onFriendClicked(user: DiraUser, view: View) {
             val direction = DrawerFragmentDirections.actionDrawerFragmentToProfileFragment(user)
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main).navigate(direction)
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main)
+                .navigate(direction)
         }
 
         override fun onUserClicked(user: DiraUser, view: ImageView) {
@@ -47,7 +50,7 @@ class UsersListFragment : Fragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.action_no_filter -> {
             viewModel.loadUsersList()
             true
@@ -55,7 +58,8 @@ class UsersListFragment : Fragment() {
         R.id.action_filter_friends -> {
             viewModel.loadFriends()
             true
-        } else -> true
+        }
+        else -> true
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -65,16 +69,26 @@ class UsersListFragment : Fragment() {
         searchView.queryHint = "Введите имя"
         searchView.setIconifiedByDefault(false)
 
-        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
-            searchEditText.setTextColor(resources.getColor(R.color.dark_cyan, context?.theme))
-            searchEditText.setHintTextColor(resources.getColor(R.color.dark_cyan, context?.theme))
-            searchEditText.setBackgroundResource(R.color.light_cyan)
-        } else {
-            searchEditText.setTextColor(resources.getColor(R.color.mid_cyan, context?.theme))
-            searchEditText.setHintTextColor(resources.getColor(R.color.mid_cyan, context?.theme))
-            searchEditText.setBackgroundResource(R.color.dark_gray)
-        }
+        val searchEditText =
+            searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText.setTextColor(
+            MaterialColors.getColor(
+                requireContext(),
+                R.attr.AppBarTextColor,
+                Color.BLACK
+            )
+        )
+        searchEditText.setHintTextColor(
+            MaterialColors.getColor(
+                requireContext(),
+                R.attr.AppBarTextColor,
+                Color.BLACK
+            )
+        )
+        searchEditText.setBackgroundResource(
+            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                R.color.grey_500 else R.color.light_cyan
+        )
 
         val listener = object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {

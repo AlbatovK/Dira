@@ -15,11 +15,15 @@ class StatsViewModel(
     getCurrentUser: GetCurrentUserUseCase
 ) : ViewModel() {
 
-    private val _leagueUsers: MutableLiveData<List<DiraUser>> = MutableLiveData<List<DiraUser>>().apply {
-        viewModelScope.launch(Dispatchers.Main) {
-            value = loadAllByUsersLeague()
+    private val _leagueUsers: MutableLiveData<List<DiraUser>> =
+        MutableLiveData<List<DiraUser>>().apply {
+            viewModelScope.launch(Dispatchers.Main) {
+                try {
+                    value = loadAllByUsersLeague()
+                } catch (e: Exception) {
+                }
+            }
         }
-    }
 
     val leagueUsers: LiveData<List<DiraUser>> = _leagueUsers
 

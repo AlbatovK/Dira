@@ -4,12 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.albatros.kplanner.domain.usecase.note.AddNotesToScheduleUseCase
-import com.albatros.kplanner.domain.usecase.note.LoadAllNotesUseCase
 import com.albatros.kplanner.domain.usecase.note.NotesUseCases
 import com.albatros.kplanner.model.data.DiraNote
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ListViewModel(
@@ -35,7 +32,11 @@ class ListViewModel(
         }
         viewModelScope.launch {
             isLoading = true
-            _notes.value = notesUseCases.loadNotes(key * pageSize, ++key * pageSize)
+            try {
+                _notes.value = notesUseCases.loadNotes(key * pageSize, ++key * pageSize)
+            } catch (e: Exception) {
+
+            }
             isLoading = false
         }
     }

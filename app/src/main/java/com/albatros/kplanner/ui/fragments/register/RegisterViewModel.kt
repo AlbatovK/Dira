@@ -1,7 +1,5 @@
 package com.albatros.kplanner.ui.fragments.register
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.albatros.kplanner.domain.usecase.auth.AuthUseCases
@@ -10,8 +8,6 @@ import com.albatros.kplanner.domain.usecase.datatransfer.input.ServerInputUseCas
 import com.albatros.kplanner.domain.usecase.note.AddNotesToScheduleByIdUseCase
 import com.albatros.kplanner.domain.util.AuthResult
 import com.albatros.kplanner.model.data.DiraUser
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

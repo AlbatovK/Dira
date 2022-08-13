@@ -22,7 +22,7 @@ val viewModelModule = module {
     viewModel { MainViewModel(get(), get(), get(), get()) }
     viewModel { StatsViewModel(get(), get()) }
     viewModel { NavigationViewModel() }
-    viewModel { MainActivityViewModel(get()) }
+    viewModel { MainActivityViewModel(get(), get()) }
     viewModel { UsersListViewModel(get(), get(), get(), get(), get()) }
     viewModel { parameters -> ProfileViewModel(get(), get(), parameters.get()) }
     viewModel { DrawerViewModel(get(), get(), get()) }

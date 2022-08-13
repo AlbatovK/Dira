@@ -1,6 +1,5 @@
 package com.albatros.kplanner.ui.fragments.navigation
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,9 +27,19 @@ class NavigationFragment : Fragment(), MainActivity.IOnBackPressed {
         val navHostFragment: View = binding.container.findViewById(R.id.bottom_nav_host_fragment)
         val navController = Navigation.findNavController(navHostFragment)
         val appBarConfiguration = AppBarConfiguration
-            .Builder(R.id.main_fragment, R.id.list_fragment, R.id.users_fragment, R.id.stats_fragment).setOpenableLayout((activity as MainActivity).binding.drawerLayout).build()
+            .Builder(
+                R.id.main_fragment,
+                R.id.list_fragment,
+                R.id.users_fragment,
+                R.id.stats_fragment
+            ).setOpenableLayout((activity as MainActivity).binding.drawerLayout).build()
         NavigationUI.setupWithNavController(binding.navView, navController)
-        NavigationUI.setupActionBarWithNavController(activity as MainActivity, navController, appBarConfiguration)
+        NavigationUI.setupActionBarWithNavController(
+            activity as MainActivity,
+            navController,
+            appBarConfiguration
+        )
+        binding.navView.setOnItemReselectedListener {}
     }
 
     override fun onCreateView(

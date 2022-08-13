@@ -9,13 +9,13 @@
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backgroundTint="?android:attr/navigationBarColor"
-        app:itemIconTint="@color/dark_cyan"
-        app:itemTextColor="@color/dark_cyan"
         android:layout_gravity="bottom"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         android:background="@color/white"
         android:paddingBottom="30dp"
+        app:backgroundTint="?android:attr/navigationBarColor"
+        app:itemIconTint="?attr/AppBarTextColor"
+        app:itemTextColor="?attr/AppBarTextColor"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:menu="@menu/bottom_nav_menu" />
 
     <fragment

@@ -13,7 +13,6 @@ import com.albatros.kplanner.databinding.StatsFragmentBinding
 import com.albatros.kplanner.domain.extensions.getLeague
 import com.albatros.kplanner.ui.adapter.user.stats.UserAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class StatsFragment : Fragment() {
 
@@ -38,12 +37,12 @@ class StatsFragment : Fragment() {
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
 
-            val drawableId = when(user.league) {
-                1 ->  R.drawable.bronze
-                2 ->  R.drawable.silver
-                3 ->  R.drawable.gold
-                4 ->  R.drawable.platinum
-                5 ->  R.drawable.diamond
+            val drawableId = when (user.league) {
+                1 -> R.drawable.bronze
+                2 -> R.drawable.silver
+                3 -> R.drawable.gold
+                4 -> R.drawable.platinum
+                5 -> R.drawable.diamond
                 else -> R.drawable.bronze
             }
 
@@ -56,7 +55,8 @@ class StatsFragment : Fragment() {
 
         viewModel.leagueUsers.observe(viewLifecycleOwner) {
             binding.list.adapter = UserAdapter(it.toMutableList())
-            binding.list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            binding.list.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
 }

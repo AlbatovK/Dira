@@ -1,8 +1,8 @@
 package com.albatros.kplanner.ui.fragments.list
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -15,10 +15,7 @@ import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.ui.activity.MainActivity
 import com.albatros.kplanner.ui.adapter.note.NoteAdapter
 import com.albatros.kplanner.ui.adapter.note.NoteAdapterListener
-import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
-import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
+import com.google.android.material.color.MaterialColors
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
@@ -37,6 +34,8 @@ class ListFragment : Fragment() {
     var selecting = false
     var selected: MutableList<DiraNote> = mutableListOf()
     var selectedViews: MutableList<CardView> = mutableListOf()
+    var defaultColor: Int = 0
+    var selectingColor: Int = 0
 
     private val listener = object : NoteAdapterListener {
         override fun onNoteSelected(note: DiraNote, view: CardView) {}
@@ -46,29 +45,32 @@ class ListFragment : Fragment() {
                 if (selected.contains(note)) {
                     selected.remove(note)
                     selectedViews.remove(view)
-                    view.setCardBackgroundColor(
-                        resources.getColor(
-                            android.R.color.white,
-                            context?.theme
-                        )
-                    )
+                    view.setCardBackgroundColor(defaultColor)
+                    if (selectedViews.isEmpty()) {
+                        actionMode?.finish()
+                    }
                     return
                 }
                 selected.add(note)
                 selectedViews.add(view)
-                view.setCardBackgroundColor(resources.getColor(R.color.gray_light, context?.theme))
+                view.setCardBackgroundColor(selectingColor)
                 return
             }
             (activity as MainActivity).binding.toolbar.startActionMode(actionModeCallback)
             selected.add(note)
             selectedViews.add(view)
             selecting = true
-            view.setCardBackgroundColor(resources.getColor(R.color.gray_light, context?.theme))
+            defaultColor = view.cardBackgroundColor.defaultColor
+
+            view.setCardBackgroundColor(selectingColor)
         }
     }
 
+    private var actionMode: ActionMode? = null
+
     private val actionModeCallback = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            actionMode = mode
             selecting = true
             mode?.menuInflater?.inflate(R.menu.menu_action, menu)
             return true
@@ -100,8 +102,7 @@ class ListFragment : Fragment() {
 
 
         override fun onDestroyActionMode(mode: ActionMode?) {
-            selectedViews.forEach { view -> view.setCardBackgroundColor(
-                resources.getColor(android.R.color.white, context?.theme)) }
+            selectedViews.forEach { view -> view.setCardBackgroundColor(defaultColor) }
             selecting = false
             selected.clear()
             selectedViews.clear()
@@ -111,6 +112,9 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        selectingColor =
+            MaterialColors.getColor(requireContext(), R.attr.SelectedItemBackground, Color.BLACK)
 
         viewModel.noteAdded.observe(viewLifecycleOwner) {
             if (it) {

@@ -15,7 +15,10 @@ class ProfileViewModel(
 ) : ViewModel() {
 
     val userSchedule: LiveData<Schedule> = liveData {
-        emit(internalDataFetchUseCases.loadUsersSchedule(chosen.tokenId))
+        try {
+            emit(internalDataFetchUseCases.loadUsersSchedule(chosen.tokenId))
+        } catch (e: Exception) {
+        }
     }
 
     private val _onImported: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -24,8 +27,11 @@ class ProfileViewModel(
 
     fun importSchedule() {
         viewModelScope.launch(Dispatchers.Main) {
-            importScheduleUseCase(chosen.tokenId)
-            _onImported.value = true
+            try {
+                importScheduleUseCase(chosen.tokenId)
+                _onImported.value = true
+            } catch (e: Exception) {
+            }
         }
     }
 

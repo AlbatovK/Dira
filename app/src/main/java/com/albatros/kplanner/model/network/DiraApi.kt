@@ -1,8 +1,8 @@
 package com.albatros.kplanner.model.network
 
+import com.albatros.kplanner.domain.util.NotesIdsResource
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.DiraUser
-import com.albatros.kplanner.domain.util.NotesIdsResource
 import com.albatros.kplanner.model.data.Schedule
 import retrofit2.http.Body
 import retrofit2.http.GET

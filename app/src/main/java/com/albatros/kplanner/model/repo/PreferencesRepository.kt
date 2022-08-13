@@ -33,7 +33,8 @@ class PreferencesRepository(private val settings: SharedPreferences) {
         }
     }
 
-    fun getUiMode() = if (settings.getString(KEY_MODE, LIGHT_MODE) == LIGHT_MODE) UiMode.LIGHT else UiMode.DARK
+    fun getUiMode() =
+        if (settings.getString(KEY_MODE, LIGHT_MODE) == LIGHT_MODE) UiMode.LIGHT else UiMode.DARK
 
     private fun setLightMode() {
         with(editor) {
@@ -57,7 +58,6 @@ class PreferencesRepository(private val settings: SharedPreferences) {
             apply()
         }
     }
-
 
 
     fun getEmail() = settings.getString(KEY_EMAIL, "")

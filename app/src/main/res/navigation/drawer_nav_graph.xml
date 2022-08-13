@@ -9,8 +9,7 @@
         android:id="@+id/NavigationFragment"
         android:name="com.albatros.kplanner.ui.fragments.navigation.NavigationFragment"
         android:label="Главный экран"
-        tools:layout="@layout/navigation_fragment">
-    </fragment>
+        tools:layout="@layout/navigation_fragment" />
 
     <fragment
         android:id="@+id/main_fragment"

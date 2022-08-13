@@ -19,6 +19,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_home.xml" value="0.186" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_import.xml" value="0.142" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_night_mode.xml" value="0.1785" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/ic_trophy.xml" value="0.1975" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/activity_bottom_nav.xml" value="0.1644021739130435" />
@@ -44,7 +45,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/user_note_layout.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/user_note_layoutt.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/users_list_layout.xml" value="0.1644021739130435" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/welcome_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/layout/welcome_fragment.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/drawer_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/KPlanner/app/src/main/res/menu/menu_action.xml" value="0.20416666666666666" />

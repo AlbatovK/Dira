@@ -28,32 +28,44 @@ class UsersListViewModel(
     private val _users: MutableLiveData<List<DiraUser>> =
         MutableLiveData<List<DiraUser>>().apply {
             viewModelScope.launch(Dispatchers.Main) {
-                allUsers = loadAllUsers()
-                value = allUsers.toMutableList()
+                try {
+                    allUsers = loadAllUsers()
+                    value = allUsers.toMutableList()
+                } catch (e: Exception) {
+                }
             }
         }
 
     private var searchJob: Job? = null
 
     fun fetchByTopics(query: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(500L)
-            val found = loadUsersByNamePrefix(query)
-            _users.value = found
+        try {
+            searchJob?.cancel()
+            searchJob = viewModelScope.launch {
+                delay(500L)
+                val found = loadUsersByNamePrefix(query)
+                _users.value = found
+            }
+        } catch (e: Exception) {
         }
     }
 
     fun loadFriends() {
         viewModelScope.launch(Dispatchers.Main) {
-            val friends = loadFriendsUseCase()
-            _users.value = friends
+            try {
+                val friends = loadFriendsUseCase()
+                _users.value = friends
+            } catch (e: Exception) {
+            }
         }
     }
 
     fun loadUsersList() {
         viewModelScope.launch(Dispatchers.Main) {
-            _users.value = allUsers
+            try {
+                _users.value = allUsers
+            } catch (e: Exception) {
+            }
         }
     }
 
@@ -63,7 +75,10 @@ class UsersListViewModel(
 
     fun addFriend(user: DiraUser) {
         viewModelScope.launch(Dispatchers.Main) {
-            addFriendUseCase(user)
+            try {
+                addFriendUseCase(user)
+            } catch (e: Exception) {
+            }
         }
     }
 }

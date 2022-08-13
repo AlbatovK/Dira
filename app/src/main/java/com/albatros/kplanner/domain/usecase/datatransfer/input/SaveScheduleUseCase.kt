@@ -7,5 +7,9 @@ import kotlinx.coroutines.withContext
 
 class SaveScheduleUseCase(private val userRepository: UserRepository) {
     suspend operator fun invoke(schedule: Schedule? = null) =
-        withContext(Dispatchers.IO) { userRepository.saveSchedule(schedule ?: userRepository.getCurrentSchedule()) }
+        withContext(Dispatchers.IO) {
+            userRepository.saveSchedule(
+                schedule ?: userRepository.getCurrentSchedule()
+            )
+        }
 }

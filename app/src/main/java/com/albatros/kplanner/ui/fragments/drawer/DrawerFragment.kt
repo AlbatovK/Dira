@@ -70,12 +70,17 @@ class DrawerFragment : Fragment() {
             openDrawerIfClosed()
         }
 
+        navView.setCheckedItem(R.id.NavigationFragment)
+
         navView.setNavigationItemSelectedListener {
             if (it.itemId == R.id.nav_exit) {
                 activity?.finishAffinity()
                 true
             } else {
                 drawerLayout.closeDrawer(GravityCompat.START)
+                if (controller.currentDestination?.id ?: 0 == it.itemId) {
+                    return@setNavigationItemSelectedListener true
+                }
                 lifecycleScope.launch {
                     delay(200)
                     NavigationUI.onNavDestinationSelected(it, controller)

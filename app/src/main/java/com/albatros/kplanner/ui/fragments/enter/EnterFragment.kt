@@ -5,7 +5,6 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +14,6 @@ import com.albatros.kplanner.databinding.EnterFragmentBinding
 import com.albatros.kplanner.domain.extensions.playFadeInAnimation
 import com.albatros.kplanner.domain.extensions.playFadeOutAnimation
 import com.albatros.kplanner.domain.util.AuthResult
-import com.albatros.kplanner.model.repo.PreferencesRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -67,7 +65,8 @@ class EnterFragment : Fragment() {
                                     enterText.playFadeOutAnimation(700L)
                                     enterText.isClickable = false
                                     delay(700L)
-                                    val direction = EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
+                                    val direction =
+                                        EnterFragmentDirections.actionEnterFragmentToWelcomeFragment()
                                     findNavController().navigate(direction)
                                 }
                             }
@@ -78,9 +77,11 @@ class EnterFragment : Fragment() {
                                     is AuthResult.AuthProgress ->
                                         Unit
                                     is AuthResult.AuthInvalid ->
-                                        passwordInput.helperText = "Input data is invalid. Try again."
+                                        passwordInput.helperText =
+                                            "Input data is invalid. Try again."
                                     is AuthResult.AuthFailure ->
-                                        binding.passwordInput.helperText = it.authResult.exception.message
+                                        binding.passwordInput.helperText =
+                                            it.authResult.exception.message
                                     is AuthResult.AuthSuccess -> {
                                         binding.passwordInput.playFadeOutAnimation(700L)
                                         binding.addressInput.playFadeOutAnimation(700L)

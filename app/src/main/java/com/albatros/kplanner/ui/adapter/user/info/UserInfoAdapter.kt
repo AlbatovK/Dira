@@ -20,9 +20,11 @@ class UserInfoAdapter(
 
         val diffCallback = object : DiffUtil.ItemCallback<DiraUser>() {
 
-            override fun areItemsTheSame(oldItem: DiraUser, newItem: DiraUser): Boolean = oldItem == newItem
+            override fun areItemsTheSame(oldItem: DiraUser, newItem: DiraUser): Boolean =
+                oldItem == newItem
 
-            override fun areContentsTheSame(oldItem: DiraUser, newItem: DiraUser): Boolean = oldItem.tokenId == newItem.tokenId
+            override fun areContentsTheSame(oldItem: DiraUser, newItem: DiraUser): Boolean =
+                oldItem.tokenId == newItem.tokenId
         }
     }
 

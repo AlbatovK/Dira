@@ -3,22 +3,36 @@
     <style name="Theme.KPlanner" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
-        <item name="colorPrimary">@color/dark_cyan_alpha</item>
+        <item name="colorPrimary">@color/dark_cyan</item>
         <item name="colorPrimaryVariant">@color/dark_cyan</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="AppBarStyle">@style/AppBarTextAppearance</item>
         <item name="android:editTextColor">@color/dark_cyan</item>
         <item name="android:editTextBackground">@color/dark_cyan_alpha</item>
         <item name="colorSecondary">@color/teal_200</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@color/light_cyan</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/dark_cyan</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:navigationBarDividerColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="logoTintColor">#33c9dc</item>
         <item name="android:actionMenuTextAppearance">@style/MenuTextAppearance</item>
         <item name="android:colorBackground">@color/light_cyan</item>
+        <item name="AppBarTextColor">@color/dark_cyan</item>
+        <item name="EditTextColor">@color/dark_cyan_alpha</item>
+        <item name="SelectedItemBackground">@color/gray_light</item>
     </style>
+
+    <attr name="AppBarStyle" format="reference" />
+
+    <attr name="SelectedItemBackground" format="color|reference" />
+
+    <attr name="AppBarTextColor" format="color|reference" />
+
+    <attr name="EditTextColor" format="color|reference" />
 
     <style name="BottomNav" parent="Theme.KPlanner">
         <item name="android:backgroundTint">@color/dimgrey</item>
@@ -54,6 +68,8 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <attr name="logoTintColor" format="color|reference" />
+
     <style name="CardTextStyleData" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/white</item>
         <item name="android:alpha">0.8</item>
@@ -81,7 +97,7 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="Theme.KPlanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    <style name="Theme.KPlanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColor">@color/dark_cyan</item>
     </style>
 

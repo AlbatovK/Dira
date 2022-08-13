@@ -9,9 +9,9 @@
         style="@style/CardTextStyleTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="40dp"
-        android:textColor="@color/mid_cyan"
+        android:gravity="center"
+        android:textColor="?attr/AppBarTextColor"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,12 +24,13 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:layout_marginTop="50dp"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        app:tint="?attr/logoTintColor" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
