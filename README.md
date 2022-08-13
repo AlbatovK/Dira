@@ -1,12 +1,22 @@
 # Dira
+
 [![CodeFactor](https://www.codefactor.io/repository/github/albatovk/dira/badge)](https://www.codefactor.io/repository/github/albatovk/dira) [![codebeat badge](https://codebeat.co/badges/62a80729-e763-4c24-b243-59d9138c0f75)](https://codebeat.co/projects/github-com-albatovk-dira-master)
 [![CI Build and Test](https://github.com/AlbatovK/Dira/actions/workflows/main.yml/badge.svg)](https://github.com/AlbatovK/Dira/actions/workflows/main.yml)
-# Что из себя представляет Dira?
+
+<img src="https://github.com/AlbatovK/Dira/blob/master/app/src/main/res/drawable-v24/logo.png" height="200" align="right" vspace="50" hspace="50">
+
+
 Android-приложение Directa (сокр. Dira) - это планер, который
-способен улучшить жизнь пользователей. Он позволяет структурировать их ежедневные задачи и поддерживать уровень их мотивации за счёт соревновательного духа. Именно наличие соревновательной системы выделяет наш проект на фоне других.
-# Как же это выглядит?
+способен улучшить жизнь пользователей. Он позволяет структурировать их ежедневные задачи и поддерживать уровень их мотивации за счёт соревновательного духа.
+Именно наличие соревновательной системы выделяет наш проект на фоне других.
+
+Как же это выглядит?
+
 Каждый день пользователь может выбрать в свой список ежедневных дел определённые таски из списка предложенных. Затем, когда он выполняет одно из своих заданий, он отмечает его выполненным, после чего ему начисляются очки.
-Приложение позволяет как составить свой собственный план на день, так и импортировать его у ваших друзей, которых вы можете добавить в приложении.
+
+
+Приложение позволяет как составить свой собственный план на день, \
+так и импортировать его у ваших друзей, которых вы можете добавить в приложении.
 # Для чего нужны очки?
 Очки пользователя позволяют ему участвовать в системе рейтингов и лиг, которые позволяют соревноваться с другими пользователями, улучшать свои результаты и повышать заинтересованность в достижении целей.
 # Что в итоге?
@@ -15,7 +25,7 @@ Android-приложение Directa (сокр. Dira) - это планер, к�
 # Техническая характеристика проекта
 Проект состоит из Android-приложения, серверной части [(ссылка на репозиторий)](https://github.com/AlbatovK/DiraServer) и сторонних сервисов, добавляющих функционал в приложение.
 * Стэк технологий
-    * Kotlin Coroutines - выполнение асинхронных операций для работы с сетью
+    * Kotlin Coroutines и Kotlin FLow - выполнение асинхронных операций для работы с сетью
     * Retrofit - быстрый и удобный доступ к API со стороны клиента
     * Spring Boot Framework - web-приложение развёрнутое на хостинге [(ссылка на сервер)](https://secret-escarpment-88160.herokuapp.com) Heroku
     * Swagger2 - автоматическое создание документации API [(ссылка на документацию)](https://secret-escarpment-88160.herokuapp.com/swagger-ui.html)
@@ -60,9 +70,14 @@ Android-приложение Directa (сокр. Dira) - это планер, к�
 ![](https://github.com/AlbatovK/Dira/blob/master/assets/enter.jpg?raw=true)       | ![](https://github.com/AlbatovK/Dira/blob/master/assets/register.jpg?raw=true)       |
 | -------------- | -------------- |
 | ![](https://github.com/AlbatovK/Dira/blob/master/assets/welcome.jpg?raw=true)   | ![](https://github.com/AlbatovK/Dira/blob/master/assets/main.jpg?raw=true)    |
-| ![](https://github.com/AlbatovK/Dira/blob/master/assets/note_list.jpg?raw=true) | ![](https://github.com/AlbatovK/Dira/blob/master/assets/note_choose.jpg?raw=true) |
-![](https://github.com/AlbatovK/Dira/blob/master/assets/user_list.jpg?raw=true) | ![](https://github.com/AlbatovK/Dira/blob/master/assets/search.jpg?raw=true)
-![](https://github.com/AlbatovK/Dira/blob/master/assets/other_profile.jpg?raw=true) | ![](https://github.com/AlbatovK/Dira/blob/master/assets/league.jpg?raw=true)
+| ![](https://github.com/AlbatovK/Dira/blob/master/assets/drawer.jpg?raw=true) | ![](https://github.com/AlbatovK/Dira/blob/master/assets/note_list.jpg?raw=true) |
+![](https://github.com/AlbatovK/Dira/blob/master/assets/note_choose.jpg?raw=true) | ![](https://github.com/AlbatovK/Dira/blob/master/assets/user_list.jpg?raw=true)
+![](https://github.com/AlbatovK/Dira/blob/master/assets/search.jpg?raw=true) | ![](https://github.com/AlbatovK/Dira/blob/master/assets/other_profile.jpg?raw=true)
+![](https://github.com/AlbatovK/Dira/blob/master/assets/league.jpg?raw=true)   | ![](https://github.com/AlbatovK/Dira/blob/master/assets/paging.jpg?raw=true)  
+![](https://github.com/AlbatovK/Dira/blob/master/assets/enter_dark.jpg?raw=true)   | ![](https://github.com/AlbatovK/Dira/blob/master/assets/drawer_dark.jpg?raw=true)
+![](https://github.com/AlbatovK/Dira/blob/master/assets/main_dark.jpg?raw=true)   | ![](https://github.com/AlbatovK/Dira/blob/master/assets/note_choose_dark.jpg?raw=true) 
+![](https://github.com/AlbatovK/Dira/blob/master/assets/user_list_dark.jpg?raw=true)   | ![](https://github.com/AlbatovK/Dira/blob/master/assets/other_profile_dark.jpg?raw=true) 
+
 
 ## License
 ```
