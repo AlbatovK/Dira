@@ -56,7 +56,6 @@ Android-приложение Directa (сокр. Dira) - это планер, к�
 * UI
     * Material design
     * MaterialUI - Элементы навигации Bottom Navigation и Navigation Drawer из NavigationUI
-    * TapTargetView library - интерактивные подсказки 
 
 # Базовая структура
 ![](https://github.com/AlbatovK/KQuiz/blob/master/assets/circles.drawio.svg?raw=true)
@@ -67,7 +66,7 @@ Android-приложение Directa (сокр. Dira) - это планер, к�
 # Структура интерфейса
 ![](https://github.com/AlbatovK/Dira/blob/master/assets/dirascheme.drawio.svg?raw=true)
 
-# Скриншоты работы приложения
+# Скриншоты работы приложения (Версия 1.0.0)
 ![](https://github.com/AlbatovK/Dira/blob/master/assets/enter.jpg?raw=true)       | ![](https://github.com/AlbatovK/Dira/blob/master/assets/register.jpg?raw=true)       |
 | -------------- | -------------- |
 | ![](https://github.com/AlbatovK/Dira/blob/master/assets/welcome.jpg?raw=true)   | ![](https://github.com/AlbatovK/Dira/blob/master/assets/main.jpg?raw=true)    |
