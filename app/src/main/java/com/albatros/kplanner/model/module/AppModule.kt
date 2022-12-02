@@ -13,7 +13,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val host_name = "https://diraserver.herokuapp.com"
+private const val host_name = "https://diraserver.up.railway.app"
 
 private const val settingsName = "settings"
 
