@@ -60,15 +60,43 @@
                 android:gravity="center_vertical|end"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/done_img"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:alpha="0.7"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_checkbox_empty"
-                    app:tint="?attr/AppBarTextColor" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
+                    <TextView
+                        android:id="@+id/time"
+                        style="@style/NoteCardTextStyleData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:textColor="?attr/AppBarTextColor"
+                        tools:ignore="Suspicious0dp" />
+
+                    <ImageView
+                        android:id="@+id/time_pick"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginEnd="12dp"
+
+                        android:alpha="0.7"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_timer"
+                        app:tint="?attr/AppBarTextColor" />
+
+                    <ImageView
+                        android:id="@+id/done_img"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:alpha="0.7"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_checkbox_empty"
+                        app:tint="?attr/AppBarTextColor" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

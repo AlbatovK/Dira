@@ -2,12 +2,15 @@ package com.albatros.kplanner.ui.fragments.main
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +38,28 @@ class MainFragment : Fragment() {
         override fun onItemDismiss(position: Int, adapter: ScheduleAdapter) {
             viewModel.removeNoteFromSchedule(position)
             adapter.notifyItemRemoved(position)
+        }
+
+        override fun onTimePicked(note: DiraNote, schedule: Schedule, view: TextView) {
+            val zone = TimeZone.getDefault()
+            val calendar: Calendar = Calendar.getInstance(zone)
+            if (note.time > 0) {
+                calendar.timeInMillis = note.time
+            }
+
+            val onTimeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                val new = Calendar.getInstance(zone)
+                new.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                new.set(Calendar.MINUTE, minute)
+                note.time = new.timeInMillis
+                view.text = DateFormat.format("kk:mm", new)
+                viewModel.saveState()
+            }
+
+            TimePickerDialog(requireContext(), onTimeSetListener,
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                false).show()
         }
 
         override fun onItemMoved(

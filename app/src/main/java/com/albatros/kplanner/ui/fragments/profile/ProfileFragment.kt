@@ -3,6 +3,7 @@ package com.albatros.kplanner.ui.fragments.profile
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -55,6 +56,7 @@ class ProfileFragment : Fragment() {
             adapter: ScheduleAdapter
         ): Boolean = false
 
+        override fun onTimePicked(note: DiraNote, schedule: Schedule, view: TextView) {}
         override fun onItemDismiss(position: Int, adapter: ScheduleAdapter) {}
         override fun onNoteFinished(note: DiraNote, schedule: Schedule, view: ImageView) {}
     }

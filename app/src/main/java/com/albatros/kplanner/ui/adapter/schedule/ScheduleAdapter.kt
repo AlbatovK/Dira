@@ -1,5 +1,6 @@
 package com.albatros.kplanner.ui.adapter.schedule
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,7 @@ import com.albatros.kplanner.R
 import com.albatros.kplanner.databinding.UserNoteLayoutBinding
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
+import java.util.*
 
 class ScheduleAdapter(
     private val schedule: Schedule,
@@ -59,9 +61,17 @@ class ScheduleAdapter(
                             )
                         )
                     }
-
+                    if (note.time > 0) {
+                        val zone = TimeZone.getDefault()
+                        val calendar = Calendar.getInstance(zone)
+                        calendar.timeInMillis = note.time
+                        time.text = DateFormat.format("kk:mm", calendar)
+                    }
                     doneImg.setOnClickListener {
                         listener.onNoteFinished(note, schedule, binding.doneImg)
+                    }
+                    timePick.setOnClickListener {
+                        listener.onTimePicked(note, schedule, binding.time)
                     }
                 }
             }

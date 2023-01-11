@@ -13,6 +13,10 @@ data class DiraNote(
     @Expose
     var title: String = "",
 
+    @SerializedName("time")
+    @Expose
+    var time: Long = -1,
+
     @SerializedName("description")
     @Expose
     var description: String = "",
