@@ -1,6 +1,7 @@
 package com.albatros.kplanner.model.module
 
 import android.content.Context
+import com.albatros.kplanner.model.alarm.AndroidAlarmScheduler
 import com.albatros.kplanner.model.network.DiraApi
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.FieldNamingPolicy
@@ -59,11 +60,15 @@ private fun provideSharedPreferences(context: Context) =
 private fun provideFirebaseAnalytics(context: Context) =
     FirebaseAnalytics.getInstance(context)
 
+private fun provideAlarmScheduler(context: Context) =
+    AndroidAlarmScheduler(context)
+
 val appModule = module {
     single(createdAtStart = true) { provideSharedPreferences(get()) }
     single(createdAtStart = true) { provideFirebaseAnalytics(get()) }
     single(createdAtStart = true) { provideApiService(get()) }
     single(createdAtStart = true) { provideRetrofit(get(), get()) }
+    single { provideAlarmScheduler(get()) }
     single { provideCache(get()) }
     single { provideOkHttpClient(get(), get()) }
     single { provideInterceptor() }

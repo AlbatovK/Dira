@@ -19,7 +19,7 @@ val viewModelModule = module {
     viewModel { RegisterViewModel(get(), get(), get(), get()) }
     viewModel { WelcomeViewModel(get()) }
     viewModel { ListViewModel(get()) }
-    viewModel { MainViewModel(get(), get(), get(), get()) }
+    viewModel { MainViewModel(get(), get(), get(), get(), get()) }
     viewModel { StatsViewModel(get(), get()) }
     viewModel { NavigationViewModel() }
     viewModel { MainActivityViewModel(get(), get()) }

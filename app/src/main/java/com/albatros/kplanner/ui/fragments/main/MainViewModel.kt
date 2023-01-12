@@ -8,6 +8,7 @@ import com.albatros.kplanner.domain.usecase.datatransfer.fetch.InternalDataFetch
 import com.albatros.kplanner.domain.usecase.datatransfer.get.GetCurrentUserUseCase
 import com.albatros.kplanner.domain.usecase.datatransfer.input.ServerInputUseCases
 import com.albatros.kplanner.domain.usecase.note.NotesUseCases
+import com.albatros.kplanner.model.alarm.AndroidAlarmScheduler
 import com.albatros.kplanner.model.data.DiraNote
 import com.albatros.kplanner.model.data.Schedule
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,8 @@ class MainViewModel(
     private val notesUseCases: NotesUseCases,
     private val internalDataFetchUseCases: InternalDataFetchUseCases,
     private val getCurrentUser: GetCurrentUserUseCase,
-    private val serverInputUseCases: ServerInputUseCases
+    private val serverInputUseCases: ServerInputUseCases,
+    private val alarmScheduler: AndroidAlarmScheduler,
 ) : ViewModel() {
 
     private val _schedule: MutableLiveData<Schedule> = MutableLiveData<Schedule>().apply {
@@ -27,6 +29,10 @@ class MainViewModel(
             } catch (e: Exception) {
             }
         }
+    }
+
+    fun scheduleTask(task: DiraNote) {
+        alarmScheduler.schedule(task)
     }
 
     val schedule: LiveData<Schedule> = _schedule

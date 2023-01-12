@@ -54,6 +54,7 @@ class MainFragment : Fragment() {
                 note.time = new.timeInMillis
                 view.text = DateFormat.format("kk:mm", new)
                 viewModel.saveState()
+                viewModel.scheduleTask(note)
             }
 
             TimePickerDialog(requireContext(), onTimeSetListener,
